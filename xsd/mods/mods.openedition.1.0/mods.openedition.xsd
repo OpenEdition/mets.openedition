@@ -1,0 +1,1808 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Via XMLSpy,  Ray Denenberg, Library of Congress; rden@loc.gov -->
+<xsd:schema xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.loc.gov/mods/v3" targetNamespace="http://www.loc.gov/mods/v3" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!-- -->
+	<xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+	<xsd:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
+<!-- 	
+	
+                                                                    ****************************************************************
+                                                                    *                                                              
+                                                                    *                MODS OpenEdition 1.0        
+                                                                    *                          feb 06, 2015              
+                                                                    *                                                              
+                                                                    ****************************************************************
+
+MODS OpenEdition 1.0 is a fork from MODS 3.4 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd
+Changes :
+1. xsd namespace is rename from "xs" to "xsd"
+2. see diff bollow
+
+<![CDATA[
+	
+- modsOfficial3.4.xsd	2015-02-06 13:46:26.015829488 +0100
++ modsOpenEdition.1.0.xsd	2015-02-06 12:50:42.931679749 +0100
+@@ -1,9 +1,10 @@
+-﻿<xs:schema targetNamespace="http://www.loc.gov/mods/v3" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.loc.gov/mods/v3">
+
+-<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.loc.gov/mods/xml.xsd"/>
+-<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="http://www.loc.gov/standards/xlink/xlink.xsd"/>
+
+-
++<xs:schema xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.loc.gov/mods/v3" targetNamespace="http://www.loc.gov/mods/v3" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
++  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.loc.gov/mods/xml.xsd"/>
++  <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="http://www.loc.gov/standards/xlink/xlink.xsd"/>
+
+                                                                  
+@@ -280,10 +281,7 @@
+   <xs:complexType name="identifierDefinition">
+     <xs:simpleContent>
+       <xs:extension base="xsString">
+-        <xs:attribute name="displayLabel" type="xs:string"/>
+         <xs:attribute name="type" type="xs:string"/>
+-        <xs:attribute name="invalid" type="yesDefinition"/>
+-        <xs:attribute name="altRepGroup" type="xs:string"/>
+
+       </xs:extension>
+     </xs:simpleContent>
+@@ -306,10 +304,8 @@
+   <xs:complexType name="languageDefinition">
+     <xs:sequence>
+       <xs:element ref="languageTerm" maxOccurs="unbounded"/>
+-      <xs:element ref="scriptTerm" minOccurs="0" maxOccurs="unbounded"/>
+     </xs:sequence>
+-    <xs:attribute name="objectPart" type="xs:string"/>
+     <xs:attributeGroup ref="languagePlusDisplayLabelAttributeGroup"/>
+     <xs:attribute name="altRepGroup" type="xs:string"/>
+@@ -392,23 +388,10 @@
+
+   <xs:complexType name="originInfoDefinition">
+     <xs:choice maxOccurs="unbounded">
+-      <xs:element ref="place"/>
+       <xs:element ref="publisher"/>
+       <xs:element ref="dateIssued"/>
+-      <xs:element ref="dateCreated"/>
+-      <xs:element ref="dateCaptured"/>
+-      <xs:element ref="dateValid"/>
+-      <xs:element ref="dateModified"/>
+-      <xs:element ref="copyrightDate"/>
+-      <xs:element ref="dateOther"/>
+-      <xs:element ref="edition"/>
+-      <xs:element ref="issuance"/>
+-      <xs:element ref="frequency"/>
+     </xs:choice>
+-    <xs:attributeGroup ref="languagePlusDisplayLabelAttributeGroup"/>
+-    <xs:attribute name="altRepGroup" type="xs:string"/>
++    <xs:attribute ref="xml:lang"/>
+   </xs:complexType>
+
+ 
+@@ -445,12 +428,7 @@
+
+   <xs:complexType name="physicalDescriptionDefinition">
+     <xs:choice maxOccurs="unbounded">
+-      <xs:element ref="form"/>
+-      <xs:element ref="reformattingQuality"/>
+-      <xs:element ref="internetMediaType"/>
+       <xs:element ref="extent"/>
+-      <xs:element ref="digitalOrigin"/>
+-      <xs:element name="note" type="noteBaseDefinition"/>
+
+                  ********** <note> as a subelement of <physicalDescription> is not part of the
+                  ********** MODS namespace, because it needs a different definition than <note>
+@@ -512,17 +490,8 @@
+   <xs:complexType name="subjectDefinition">
+     <xs:choice minOccurs="0" maxOccurs="unbounded">
+       <xs:element ref="topic"/>
+-      <xs:element ref="geographic"/>
+-      <xs:element ref="temporal"/>
+-      <xs:element name="titleInfo" type="subjectTitleInfoDefinition"/>
+       <xs:element name="name" type="subjectNameDefinition"/>
+-      <xs:element ref="geographicCode"/>
+-      <xs:element ref="hierarchicalGeographic"/>
+-      <xs:element ref="cartographics"/>
+-      <xs:element ref="occupation"/>
+-      <xs:element ref="genre"/>
+     </xs:choice>
+     <xs:attributeGroup ref="idAuthorityXlinkLanguageDisplayLabelAttributeGroup"/>
+@@ -576,24 +545,12 @@
+  ********** titleInfoDefinition  **********
+   <xs:complexType name="titleInfoDefinition">
+-    <xs:complexContent>
+-      <xs:extension base="titleInfoBaseDefinition">
++    <xs:choice maxOccurs="unbounded">
++      <xs:element ref="title"/>
++      <xs:element ref="subTitle"/>
++    </xs:choice>
+         <xs:attribute name="type" type="titleInfoTypeAttributeDefinition"/>
+-        <xs:attribute name="supplied" type="yesDefinition"/>
+-        <xs:attribute name="altRepGroup" type="xs:string"/>
+-        <xs:attribute name="nameTitleGroup" type="xs:string"/>
+-        <xs:attribute name="usage" type="usageAttributeDefinition"/>
+-      </xs:extension>
+-    </xs:complexContent>
++    <xs:attribute ref="xml:lang"/>
+   </xs:complexType>
+ 
+@@ -832,10 +789,7 @@
+   <xs:complexType name="nameBaseDefinition">
+     <xs:choice minOccurs="0" maxOccurs="unbounded">
+       <xs:element ref="namePart"/>
+-      <xs:element ref="displayForm"/>
+-      <xs:element ref="affiliation"/>
+       <xs:element ref="role"/>
+-      <xs:element ref="description"/>
+     </xs:choice>
+     <xs:attribute name="type" type="nameTypeAttributeDefinition"/>
+     <xs:attributeGroup ref="idAuthorityXlinkLanguageDisplayLabelAttributeGroup"/>
+@@ -1093,7 +1047,7 @@
+ 
+   <xs:element name="abstract" type="abstractDefinition"/>
+-  <xs:element name="accessCondition" type="accessConditionDefinition"/>
++  <xs:element name="accessCondition" type="xsString"/>
+   <xs:element name="affiliation" type="xsString"/>
+   
+   ]]>
+-->
+	<!--
+	
+                                                                    ****************************************************************
+                                                                    *                                                                              * 
+                                                                    *                            MODS 3.4                                   * 
+                                                                    *                          June 10, 2010                                *
+                                                                    *                                                                              *
+                                                                    *****************************************************************
+
+MODS: Metadata Object Description Schema. See http://www.loc.gov/standards/mods/
+
+Modified:
+-  June 17, 2010. attribute altRepGroup added to accessCondition. This had been omitted in error. 
+-  July 27, August 3. minor typos corrected.
+******************************************************************************************************************************************************************
+
+                                                         *************************************
+                                                             Changes from version 3.3  
+                                                         *************************************
+
+1.   <form> as sublement of <location><holdingsSimple><copyInformation> is changed to conform to the <form> element defined for the MODS namespace.  The effect of this change is attribute ID is now allowed for <form>. Since it is optional this will not affect existing instances.  
+
+2. The attribute 'displayLabel' has been added to the definitions of several top level elements, so that all top level elements now have this attribute. Specifically 'displayLabel' has been added to the definitions of: <extension>, <genre>, <location>, <language>, <name>, <originInfo>, <part>, <physicalDescription>, <recordInfo>, <subject>, <targetAudience>, <typeOfResource>.   
+
+3. Element <scriptTerm> is defined, a subelement of <language>, with attributes type (code or text) and authority. 
+
+4. The languageAttributeGroup (lang, xml:lang, script and transliteration) now applies to every text element.  This is accomplished by use of the newly defined  "xsString" type, replacing the assignment of "xsd:string" wherever applicable, that is, everywhere xsd:string was previously used except to define an attribute or as the base of an extension for a definition with enumerated values.     In addition it has been added to top level elements <language>, <location>, and <part>; all other top level element already had these attributes in version 3.3 so now all top level elements have them. 
+
+5. Values  "references"  and  "reviewOf" are added to attribute "type" of  <relatedItem>.   
+
+6. The values "single unit", "multipart monograph", "serial", "integrating resource" are added to <originInfo><issuance>.  
+
+7. Attribute ""shareable" is defined and added to <tableOfContents> and <abstract>.  It has a single value: "no" . 
+
+8. Attribute ""supplied" is defined and added to  <originInfo><edition>, <originInfo><place>, <originInfo><publisher>, <physicalDescription><extent>, and <titleInfo>.  It has a single value: "yes" . 
+
+9. For dates, "edtf" and "temper" are added to the list values that may be used for the "encoding" attribute. 
+
+10. The version attribute now enumerates all 3.x versions (3.0, 3.1, 3.2, 3.3, and 3.4). In earlier versions of the schema, only the latest version was allowed. (E.g. in version 3.3, the only allowable value for the version attribute was "3.3".) 
+
+11. For the type attribute for <name>, the value "family" is added to the list of possible values. 
+
+12. New attributes authorityURI and valueURI are defined, type xsd:anyURI, identifying a controlled vocabulary and a value from that vocabulary, respectively.    These two attributes are applied to:
+        (a) any element that already had an authority attribute in 3.3: 
+              descriptionStandard, frequency, recordContentSource, roleTerm,  classification, Form, targetAudience, genre,
+              physicalLocation, name, subject, titleInfo, geographicCode, placeTerm, languageTerm.   
+         (b) new elements that have an authority attribute:  scriptTerm
+         (c) all subelements of <subject>.
+
+13. New attribute altRepGroup added to all MODS top level elements, except relatedItem.  This is to support encoding of translations and transliterations of the same content. Thus identical values of this attribute occuring on different instances of the same top level element indicates that they contain the same content in a different language or transliteration.  
+
+14. New attribute 'nameTitleGroup' defined for <titleInfo> and <name>. When the value of 'nameTitleGroup' for a specific instance of <titleInfo> equals the value of 'nameTitleGroup' for a specific instance of <name> then those instances are considered to be in the same name/title group. 
+
+15. The 'usage' attribute, which had applied only to <url> (of <location>) in 3.3, now applies also to <titleInfo>, <name>, <typeOfResource>, <language>, <subject>, <classification>,  and <genre> in 3.4.  Previously, it had a single value, "primary display", for <url>. Now, when used with these new elements, there is a single value, "primary".  For <url>, both "primary display" and "primary" are allowed but "primary display" is depricated. 
+
+16. The schema is rewritten in namespace-normalized form, and the definitions and sections are reorganized.  
+
+******************************************************************************************************************************************************************
+                                                        *************************************
+                                                             Organization of this schema
+                                                         *************************************
+The schema has four sections:
+
+1.   Preliminary declarations and definitions 
+2.   Type definitions
+3.   Element declarations
+4.  Auxiliary Definitions for Attributes
+
+The MODS namespace consists of  type names and element names:  (2) and (3)
+
+*********************************************************************************************************************************************************************
+
+                                             ***********************************************************************
+                                                       Part 1:    Preliminary Declarations and Definitions 
+                                             ***********************************************************************
+
+- Definition of a single MODS record  and a MODS collection   
+- modsGroup, listing the top level MODS elements
+
+                                  
+                                  	
+*****************************************************************************************
+*****************************************************************************************
+
+Declaration of a single MODS record:  
+
+	 -->
+	<xsd:element name="mods" type="modsDefinition"/>
+	<!--  
+
+Declaration of a MODS collection: 
+
+ -->
+	<xsd:element name="modsCollection" type="modsCollectionDefinition"/>
+	<!--  
+
+
+******* Group definition. 
+
+This forms the basis of the mods record definition, and also relatedItem. The difference between a MODS record and a relatedItem (as they pertain to their usage of the group definition) is that mods requires at least one element and relatedItem does not. The group definition is used by both, where relatedItem says minOccurs="0" and for the mods record definition minOccurs="1" (default).
+
+-->
+	<xsd:group name="modsGroup">
+		<xsd:choice>
+			<!-- 
+***********************************************************************
+**        These are the "top level" MODS elements               **
+**********************************************************************
+-->
+			<xsd:element ref="abstract"/>
+			<xsd:element ref="accessCondition"/>
+			<xsd:element ref="classification"/>
+			<xsd:element ref="extension"/>
+			<xsd:element ref="genre"/>
+			<xsd:element ref="identifier"/>
+			<xsd:element ref="language"/>
+			<xsd:element ref="location"/>
+			<xsd:element ref="name"/>
+			<xsd:element ref="note"/>
+			<xsd:element ref="originInfo"/>
+			<xsd:element ref="part"/>
+			<xsd:element ref="physicalDescription"/>
+			<xsd:element ref="recordInfo"/>
+			<xsd:element ref="relatedItem"/>
+			<xsd:element ref="subject"/>
+			<xsd:element ref="tableOfContents"/>
+			<xsd:element ref="targetAudience"/>
+			<xsd:element ref="titleInfo"/>
+			<xsd:element ref="typeOfResource"/>
+			<!-- 
+End list of "top level" MODS elements 
+-->
+		</xsd:choice>
+	</xsd:group>
+	<!-- 
+***********************************************************************
+**      Definition of a single MODS record                           **
+**********************************************************************
+-->
+	<xsd:complexType name="modsDefinition">
+		<xsd:group ref="modsGroup" maxOccurs="unbounded"/>
+		<xsd:attribute name="ID" type="xsd:ID"/>
+		<xsd:attribute name="version" type="modsVersionAttributeDefinition"/>
+	</xsd:complexType>
+	<!-- 
+***********************************************************************
+**      Definition of a MODS collection                                **
+**********************************************************************
+-->
+	<xsd:complexType name="modsCollectionDefinition">
+		<xsd:sequence>
+			<xsd:element ref="mods" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--	
+*****************************************************************************************
+*****************************************************************************************
+
+                                             ********************************************************
+                                                       Part 2:  Type Definitions
+                                             ********************************************************
+                              
+
+  -   Data type definitions for top level elements                                 
+  -   subordinate type definitions  
+                                	
+*****************************************************************************************
+*****************************************************************************************
+
+All type names are part of the MODS namespace                                  	
+
+***********************************************************************
+**       Data type definitions for top level elements              **
+***********************************************************************
+-->
+	<!--   
+*********************************************
+*   Top Level Element <abstract>       *
+*********************************************
+
+********** abstractDefinition   **********              
+ -->
+	<xsd:complexType name="abstractDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="unstructuredTextDefinition">
+				<xsd:attribute name="shareable" type="noDefinition"/>
+				<!--  shareable new in 3.4 -->
+				<xsd:attribute name="altRepGroup" type="xsd:string"/>
+				<!--  altRepGroup new in 3.4 -->
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--
+
+****************************************************
+*   Top Level Element <accessCondition>       *
+*****************************************************
+
+********** accessConditionDefinition   **********           
+ -->
+	<xsd:complexType name="accessConditionDefinition">
+		<xsd:complexContent>
+			<xsd:extension base="extensionDefinition">
+				<xsd:attributeGroup ref="xlink:simpleLink"/>
+				<xsd:attributeGroup ref="languageAttributeGroup"/>
+				<!-- attribute "displayLabel" was here in 3.3, removed in 3.4 because it has been added to the <extension> definition. -->
+				<xsd:attribute name="type" type="xsd:string"/>
+				<xsd:attribute name="altRepGroup" type="xsd:string"/>
+				<!--  altRepGroup new in 3.4 
+                                ***** added June 17, 2010. This had been omitted in error ****
+-->
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--
+****************************************************
+*   Top Level Element <classification>          *
+*****************************************************
+
+**********   classificationDefinition  **********  	 
+-->
+	<xsd:complexType name="classificationDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="stringPlusAuthority">
+				<xsd:attribute name="edition" type="xsd:string"/>
+				<xsd:attribute name="displayLabel" type="xsd:string"/>
+				<xsd:attribute name="altRepGroup" type="xsd:string"/>
+				<!--  altRepGroup new in 3.4 -->
+				<xsd:attribute name="usage" type="usageAttributeDefinition"/>
+				<!--  usage added to <classification> in 3.4 -->
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--
+
+****************************************************
+*   Top Level Element <extension>              *
+*****************************************************
+ 
+********** extensionDefinition  **********  
+-->
+	<xsd:complexType name="extensionDefinition" mixed="true">
+		<xsd:sequence>
+			<xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="displayLabel" type="xsd:string"/>
+		<!-- displayLabel added  to <extension> in 3.4. -->
+	</xsd:complexType>
+	<!--  
+
+****************************************************
+*   Top Level Element <genre>                    *
+*****************************************************
+
+********** genreDefinition **********  	
+-->
+	<xsd:complexType name="genreDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="stringPlusAuthorityPlusTypePlusDisplayLabel">
+				<!-- displayLabel added  to <genre> in 3.4. -->
+				<xsd:attribute name="altRepGroup" type="xsd:string"/>
+				<!--  altRepGroup new in 3.4 -->
+				<xsd:attribute name="usage" type="usageAttributeDefinition"/>
+				<!--  usage added to <genre> in 3.4 -->
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--
+
+****************************************************
+*   Top Level Element <identifier>                  *
+*****************************************************
+
+********** identifierDefinition   **********  	                     	
+-->
+	<xsd:complexType name="identifierDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="xsString">
+				<xsd:attribute name="type" type="xsd:string"/>
+				<!--  altRepGroup new in 3.4 -->
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--  
+
+****************************************************
+*   Top Level Element <language>                *
+*****************************************************
+
+********** languageDefinition   **********  	                      	
+                ***************** <scriptTerm> is introduced into <language> in  3.4.  
+                ***************** In 3.3 <language> consists solely of <languageTerm> 
+                *****************  so if <language> is present then there must be at least one instance
+                ***************** of <languageTerm> and there may be more than one. 
+                ***************** Now, in 3.4,  if <language> is present, still there must be 
+                ****************  at least one  <languageTerm> element, and there may be more than one;
+                ***************** and there may be  any number of <scriptTerm> elements, including zero.
+-->
+	<xsd:complexType name="languageDefinition">
+		<xsd:sequence>
+			<xsd:element ref="languageTerm" maxOccurs="unbounded"/>
+			<!-- scriptTerm new in 3.4 -->
+		</xsd:sequence>
+		<xsd:attributeGroup ref="languagePlusDisplayLabelAttributeGroup"/>
+		<!-- attributes language and displayLabel added  to <language> in 3.4. -->
+		<xsd:attribute name="altRepGroup" type="xsd:string"/>
+		<!--  altRepGroup new in 3.4 -->
+		<xsd:attribute name="usage" type="usageAttributeDefinition"/>
+		<!--  usage added to <language> in 3.4 -->
+	</xsd:complexType>
+	<!--
+
+****************************************************
+*   Top Level Element <location>                 *
+*****************************************************         
+
+********** locationDefinition   **********     
+ -->
+	<xsd:complexType name="locationDefinition">
+		<xsd:sequence>
+			<xsd:element ref="physicalLocation" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="shelfLocator" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="url" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="holdingSimple" minOccurs="0"/>
+			<xsd:element ref="holdingExternal" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="languagePlusDisplayLabelAttributeGroup"/>
+		<!-- attributes language and displayLabel added  to <location> in 3.4. -->
+		<xsd:attribute name="altRepGroup" type="xsd:string"/>
+		<!--  altRepGroup new in 3.4 -->
+	</xsd:complexType>
+	<!-- 
+
+****************************************************
+*   Top Level Element <name>                 *
+*****************************************************         
+
+ **********  nameDefinition    **********   		
+
+          ****** the bulk of this definition is in nameBaseDefinition, which was 
+          ****** split out from this definition in version 3.4 in order to support different
+          ****** name definitions for name at top level and subject/name. The latter
+          ****** does not have the three new attributes below.  
+-->
+	<xsd:complexType name="nameDefinition">
+		<xsd:complexContent>
+			<xsd:extension base="nameBaseDefinition">
+				<xsd:attribute name="altRepGroup" type="xsd:string"/>
+				<!--  altRepGroup new in 3.4 -->
+				<xsd:attribute name="nameTitleGroup" type="xsd:string"/>
+				<!--  nameTitleGroup new in 3.4 -->
+				<xsd:attribute name="usage" type="usageAttributeDefinition"/>
+				<!--  usage added to <name> in 3.4 -->
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--   
+
+****************************************************
+*   Top Level Element <note>                      *
+*****************************************************         
+
+********** noteDefinition   **********        
+                   ******************  Definition revised in 3.4. Part of it split off to noteBaseDefinition.     
+                   ****************** <note> as top-level element cannot have same defintion as <note> at lower levels 
+                   ****************** because it must have attribute altRepGroup at top level which lower level elements
+                   ******************  may not have.   -->
+	<xsd:complexType name="noteDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="noteBaseDefinition">
+				<xsd:attribute name="altRepGroup" type="xsd:string"/>
+				<!--  altRepGroup new in 3.4 -->
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--  
+
+****************************************************
+*   Top Level Element <originInfo>                 *
+*****************************************************         
+
+ ********** originInfoDefinition   ********** 
+-->
+	<xsd:complexType name="originInfoDefinition">
+		<xsd:choice maxOccurs="unbounded">
+			<xsd:element ref="publisher"/>
+			<xsd:element ref="dateIssued"/>
+		</xsd:choice>
+		<xsd:attribute ref="xml:lang"/>
+	</xsd:complexType>
+	<!--
+
+****************************************************
+*   Top Level Element <part>                       *
+*****************************************************
+
+********** partDefinition  **********  
+-->
+	<xsd:complexType name="partDefinition">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<!--minOccurs="0" allows <part> to be optionally empty, when the ID and type attribute values contain all the information needed about the part. -->
+			<xsd:element ref="detail"/>
+			<xsd:element name="extent" type="extentDefinition"/>
+			<!--  referenced as "name=" rather than "ref="  because <extent> of <part> is not part of the namespace, because it conflicts with <extent> of  <physicalDescription> -->
+			<xsd:element ref="date"/>
+			<xsd:element ref="text"/>
+		</xsd:choice>
+		<xsd:attribute name="ID" type="xsd:ID"/>
+		<xsd:attribute name="type" type="xsd:string"/>
+		<xsd:attribute name="order" type="xsd:integer"/>
+		<xsd:attributeGroup ref="languagePlusDisplayLabelAttributeGroup"/>
+		<!-- attributes language and displayLabel added  to <part> in 3.4. -->
+		<xsd:attribute name="altRepGroup" type="xsd:string"/>
+		<!--  altRepGroup new in 3.4 -->
+	</xsd:complexType>
+	<!-- 
+
+****************************************************
+*   Top Level Element <physicalDescription> *
+*****************************************************         
+
+********** physicalDescriptionDefinition  **********  		 		
+ -->
+	<xsd:complexType name="physicalDescriptionDefinition">
+		<xsd:choice maxOccurs="unbounded">
+			<xsd:element ref="extent"/>
+			<!-- 
+                 ********** <note> as a subelement of <physicalDescription> is not part of the
+                 ********** MODS namespace, because it needs a different definition than <note>
+                 ********** as a top-level element, because of the introduction in 3.4 of the new 
+                 ********** attribute altRepGroup to apply only to top-level elements
+-->
+		</xsd:choice>
+		<xsd:attributeGroup ref="languagePlusDisplayLabelAttributeGroup"/>
+		<!-- displayLabel added to <physicalDescription> in 3.4. -->
+		<xsd:attribute name="altRepGroup" type="xsd:string"/>
+		<!--  altRepGroup new in 3.4 -->
+	</xsd:complexType>
+	<!--  
+
+****************************************************
+*   Top Level Element <recordInfo>              *
+*****************************************************         
+
+**********  recordInfoDefinition  **********   
+-->
+	<xsd:complexType name="recordInfoDefinition">
+		<xsd:choice maxOccurs="unbounded">
+			<xsd:element ref="recordContentSource"/>
+			<xsd:element ref="recordCreationDate"/>
+			<xsd:element ref="recordChangeDate"/>
+			<xsd:element ref="recordIdentifier"/>
+			<xsd:element ref="languageOfCataloging"/>
+			<xsd:element ref="recordOrigin"/>
+			<xsd:element ref="descriptionStandard"/>
+		</xsd:choice>
+		<xsd:attributeGroup ref="languagePlusDisplayLabelAttributeGroup"/>
+		<!-- displayLabel added  to <recordInfo> in 3.4. -->
+		<xsd:attribute name="altRepGroup" type="xsd:string"/>
+		<!--  altRepGroup new in 3.4 -->
+	</xsd:complexType>
+	<!-- 
+
+****************************************************
+*   Top Level Element <relatedItem>             *
+*****************************************************         
+
+**********   relatedItemDefinition  **********  
+-->
+	<xsd:complexType name="relatedItemDefinition">
+		<xsd:group ref="modsGroup" minOccurs="0" maxOccurs="unbounded"/>
+		<xsd:attribute name="type" type="relatedItemTypeAttributeDefinition"/>
+		<xsd:attribute name="displayLabel" type="xsd:string"/>
+		<xsd:attribute name="ID" type="xsd:ID"/>
+		<xsd:attributeGroup ref="xlink:simpleLink"/>
+	</xsd:complexType>
+	<!--  
+
+****************************************************
+*   Top Level Element <subject>                  *
+*****************************************************         
+
+ ********** subjectDefinition   **********  	 	
+-->
+	<xsd:complexType name="subjectDefinition">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element ref="topic"/>
+			<xsd:element name="name" type="subjectNameDefinition"/>
+			<!-- <name> as subelement of <subject> is not part of the MODS namespace. See comment at "subjectnameDefinition" -->
+		</xsd:choice>
+		<xsd:attributeGroup ref="idAuthorityXlinkLanguageDisplayLabelAttributeGroup"/>
+		<!-- displayLabel added to <subject> in 3.4. -->
+		<xsd:attribute name="altRepGroup" type="xsd:string"/>
+		<!--  altRepGroup new in 3.4 -->
+		<xsd:attribute name="usage" type="usageAttributeDefinition"/>
+		<!--  usage added to <subject>  in 3.4 -->
+	</xsd:complexType>
+	<!-- 
+
+****************************************************
+*   Top Level Element <tableOfContents>     *
+*****************************************************           
+
+********** tableOfContentsDefinition   **********              
+ -->
+	<xsd:complexType name="tableOfContentsDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="unstructuredTextDefinition">
+				<xsd:attribute name="shareable" type="noDefinition"/>
+				<!--  shareable new in 3.4 -->
+				<xsd:attribute name="altRepGroup" type="xsd:string"/>
+				<!--  altRepGroup new in 3.4 -->
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- 
+
+****************************************************
+*   Top Level Element <targetAudience>       *
+*****************************************************           
+
+********** targetAudienceDefinition   **********              
+ -->
+	<xsd:complexType name="targetAudienceDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="stringPlusAuthority">
+				<xsd:attribute name="displayLabel" type="xsd:string"/>
+				<!-- displayLabel added to <targetAudience> in 3.4. -->
+				<xsd:attribute name="altRepGroup" type="xsd:string"/>
+				<!--  altRepGroup new in 3.4 -->
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--
+
+****************************************************
+*   Top Level Element <titleInfo>                   *
+*****************************************************
+         
+ ********** titleInfoDefinition  **********
+ -->
+	<xsd:complexType name="titleInfoDefinition">
+		<xsd:choice maxOccurs="unbounded">
+			<xsd:element ref="title"/>
+			<xsd:element ref="subTitle"/>
+		</xsd:choice>
+		<xsd:attribute name="type" type="titleInfoTypeAttributeDefinition"/>
+		<xsd:attribute ref="xml:lang"/>
+	</xsd:complexType>
+	<!--
+
+****************************************************
+*   Top Level Element <typeOfResource>     *
+*****************************************************         
+
+********** typeOfResourceDefinition   **********   	  
+ -->
+	<xsd:complexType name="typeOfResourceDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="resourceTypeDefinition">
+				<xsd:attribute name="collection" type="yesDefinition"/>
+				<xsd:attribute name="manuscript" type="yesDefinition"/>
+				<xsd:attribute name="displayLabel" type="xsd:string"/>
+				<!--displayLabel added  to <typeOfResource> in 3.4. -->
+				<xsd:attribute name="altRepGroup" type="xsd:string"/>
+				<!--  altRepGroup new in 3.4 -->
+				<xsd:attribute name="usage" type="usageAttributeDefinition"/>
+				<!--  usage added to <typeOfResource> in 3.4 -->
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--  
+***** End  data type definitions for top level elements.  
+ 
+***********************************************************************
+***********************************************************************
+
+**     Subordinate Type Definitions                                      **
+
+***********************************************************************
+***********************************************************************
+-->
+	<!--  
+ ********** cartographicsDefinition **********  
+               **************** subelement of subject	 	
+-->
+	<xsd:complexType name="cartographicsDefinition">
+		<xsd:sequence>
+			<xsd:element ref="scale" minOccurs="0"/>
+			<xsd:element ref="projection" minOccurs="0"/>
+			<xsd:element ref="coordinates" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="authorityAttributeGroup"/>
+		<!--  authority attribute group added to <cartographics>  in 3.4 -->
+	</xsd:complexType>
+	<!--
+**********copyInformationDefinition  **********     
+             **************** <copyInformation> is a subelement of <holdingSimple>, which is a subelement of <location>  
+
+                         *************************  subelements <form> and <note> are changed in 3.4 to conform to the 
+                         *************************  <form> and <note> elements defined for the MODS namespace.  
+                         *************************  The effect of these change are: 
+                         *************************        (1) attribute ID is now allowed for <form>; and
+                         *************************        (2) attributes xlink, language, and ID are now allowed for <note>. 
+                         *************************  Since they are optional this will not affect existing instances.   
+ -->
+	<xsd:complexType name="copyInformationDefinition">
+		<xsd:sequence>
+			<xsd:element ref="form" minOccurs="0"/>
+			<xsd:element ref="subLocation" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="shelfLocator" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="electronicLocator" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="note" type="noteBaseDefinition" minOccurs="0" maxOccurs="unbounded"/>
+			<!-- 
+                 ********** <note> as a subelement of <copyInformation> is not part of the
+                 ********** MODS namespace, because it needs a different definition than <note>
+                 ********** as a top-level element, because of the introduction in 3.4 of the new 
+                 ********** attribute altRepGroup to apply only to top-level elements
+-->
+			<xsd:element ref="enumerationAndChronology" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--  
+********** dateDefinition  **********  
+-->
+	<xsd:complexType name="dateDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="dateBaseDefinition">
+				<xsd:attribute name="keyDate" type="yesDefinition"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--  
+********** dateBaseDefinition   **********  
+                     ***************** Referenced by partDefinition (as well as dateDefinition)
+-->
+	<xsd:complexType name="dateBaseDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="xsString">
+				<xsd:attribute name="encoding" type="dateEncodingAttributeDefinition"/>
+				<xsd:attribute name="qualifier" type="dateQualifierAttributeDefinition"/>
+				<xsd:attribute name="point" type="datePointAttributeDefinition"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--  
+********** dateOtherDefinition  **********  
+                     ***************** <dateOther> is a subelement of <originInfo>
+-->
+	<xsd:complexType name="dateOtherDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="dateDefinition">
+				<xsd:attribute name="type" type="xsd:string"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- 
+********** detailDefinition  **********  
+                     ***************** <detail>  is a subelement of <part>
+-->
+	<xsd:complexType name="detailDefinition">
+		<xsd:choice maxOccurs="unbounded">
+			<xsd:element ref="number"/>
+			<xsd:element ref="caption"/>
+			<xsd:element ref="title"/>
+		</xsd:choice>
+		<xsd:attribute name="type" type="xsd:string"/>
+		<xsd:attribute name="level" type="xsd:positiveInteger"/>
+	</xsd:complexType>
+	<!--
+********** digitalOriginDefinition **********  	
+                     *****************  <digitalOrigin> is a subelement of <physicalDescription>
+ -->
+	<xsd:simpleType name="digitalOriginDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="born digital"/>
+			<xsd:enumeration value="reformatted digital"/>
+			<xsd:enumeration value="digitized microfilm"/>
+			<xsd:enumeration value="digitized other analog"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--  
+**********enumerationAndChronologyDefinition  **********     
+                     ***************** <enumerationAndChronology> is a subelement of <copyInformation, 
+                     ******************  which is a subelement of <holdingSimple>, 
+                     *****************  which is a subelement of <location
+ -->
+	<xsd:complexType name="enumerationAndChronologyDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="xsString">
+				<xsd:attribute name="unitType" type="enumerationAndChronologyUnitTypeAttributeDefinition"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--
+***************** extentDefinition *** 
+                     ***************** <extent> is a subelement of <part>
+-->
+	<xsd:complexType name="extentDefinition">
+		<xsd:sequence>
+			<xsd:element ref="start" minOccurs="0"/>
+			<xsd:element ref="end" minOccurs="0"/>
+			<xsd:element ref="total" minOccurs="0"/>
+			<xsd:element ref="list" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="unit" type="xsd:string"/>
+	</xsd:complexType>
+	<!--  
+ ********** geographicCodeDefinition **********  	 	
+                     ***************** <geographicCode> is a subelement of <subject>
+-->
+	<xsd:complexType name="geographicCodeDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="xsString">
+				<xsd:attributeGroup ref="placeAuthorityAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--  
+
+ ********** hierarchicalGeographicDefinition **********  	 
+                     ***************** <hierarchicalGeographic> is a subelement of <subject>
+-->
+	<xsd:complexType name="hierarchicalGeographicDefinition">
+		<xsd:choice maxOccurs="unbounded">
+			<xsd:element ref="extraterrestrialArea"/>
+			<xsd:element ref="continent"/>
+			<xsd:element ref="country"/>
+			<xsd:element ref="province"/>
+			<xsd:element ref="region"/>
+			<xsd:element ref="state"/>
+			<xsd:element ref="territory"/>
+			<xsd:element ref="county"/>
+			<xsd:element ref="city"/>
+			<xsd:element ref="citySection"/>
+			<xsd:element ref="island"/>
+			<xsd:element ref="area"/>
+		</xsd:choice>
+		<xsd:attributeGroup ref="authorityAttributeGroup"/>
+		<!--  authority attribute group added to <hierarchicalGeographic> in 3.4 -->
+	</xsd:complexType>
+	<!--  
+
+********** holdingSimpleDefinition   **********      
+                     ***************** <holdingSimple> is a subelement of <location>
+ -->
+	<xsd:complexType name="holdingSimpleDefinition">
+		<xsd:sequence>
+			<xsd:element ref="copyInformation" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--  
+********** issuanceDefinition **********  	
+                     ***************** <issuance> is a subelement of <originInfo>
+-->
+	<xsd:simpleType name="issuanceDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="continuing"/>
+			<xsd:enumeration value="monographic"/>
+			<!-- The following four: single unit, multipart monograph, serial, integrating resource - all new in 3.4 -->
+			<xsd:enumeration value="single unit"/>
+			<xsd:enumeration value="multipart monograph"/>
+			<xsd:enumeration value="serial"/>
+			<xsd:enumeration value="integrating resource"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- 
+***languageTermDefinition ***
+                     ***************** <languageTerm> is a subelement of <language>
+-->
+	<xsd:complexType name="languageTermDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="xsString">
+				<xsd:attributeGroup ref="languageAuthorityAttributeGroup"/>
+				<xsd:attribute name="type" type="codeOrTextDefinition"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- 
+ **********  nameBaseDefinition    **********   		
+           ************* This definition is new in 3.4. It is split out from the 3.3 nameDefinition
+           ************* in order to allow different name definitions for top level name and subject/name.
+-->
+	<xsd:complexType name="nameBaseDefinition">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element ref="namePart"/>
+			<xsd:element ref="role"/>
+		</xsd:choice>
+		<xsd:attribute name="type" type="nameTypeAttributeDefinition"/>
+		<xsd:attributeGroup ref="idAuthorityXlinkLanguageDisplayLabelAttributeGroup"/>
+		<!--displayLabel added to <name>  3.4. -->
+	</xsd:complexType>
+	<!--   
+**namePartDefinition
+                     ***************** <namePart> is a subelement of <name>
+-->
+	<xsd:complexType name="namePartDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="xsString">
+				<xsd:attribute name="type" type="namePartTypeAttributeDefinition"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--   
+********** noteBaseDefinition   **********   
+                    ******************* This definition new in 3.4.
+                    ****************** base definition for top-level element, <note>, also used as definition for <note> 
+                    ****************** as subelement of  <physicalDescription>, and also  <copyInformation> which is  a 
+                    ******************   subelement of <holdingSimple>, which is a subelement of <location>.
+
+                   ****************** <note> as top-level element cannot have same defintion as <note> at lower levels 
+                   ****************** because it must have attribute altRepGroup at top level which lower level elements
+                   ******************  may not have.  
+ -->
+	<xsd:complexType name="noteBaseDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="unstructuredTextDefinition">
+				<xsd:attribute name="ID" type="xsd:ID"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- 
+*** placeDefinition ***
+                     ***************** <place> is a subelement of <originInfo>
+-->
+	<xsd:complexType name="placeDefinition">
+		<xsd:sequence>
+			<xsd:element ref="placeTerm" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="supplied" type="yesDefinition"/>
+		<!-- attribute "supplied" new in 3.4 -->
+	</xsd:complexType>
+	<!-- 
+*** placeTermDefinition ***
+                     ***************** <placeTerm> is a subelement of <place>
+                     ***************** which is a subelement of <originInfo>
+-->
+	<xsd:complexType name="placeTermDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="xsString">
+				<xsd:attributeGroup ref="placeAuthorityAttributeGroup"/>
+				<xsd:attribute name="type" type="codeOrTextDefinition"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--	  
+********** physicalLocationDefinition    **********         
+                     ***************** <physicalLocation> is a subelement of <location>     
+ -->
+	<xsd:complexType name="physicalLocationDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="stringPlusAuthorityPlusTypePlusDisplayLabelPlusXlink"/>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--
+********** recordIdentifierDefinition  
+                     ***************** <recordIdentifier> is a subelement of <recordInfo> 
+-->
+	<xsd:complexType name="recordIdentifierDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="xsString">
+				<xsd:attribute name="source" type="xsd:string"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- 
+**********reformattingQualityDefinition **********  		 
+                     ***************** <reformattingQuality> is a subelement of <physicalDescription> 		
+ -->
+	<xsd:simpleType name="reformattingQualityDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="access"/>
+			<xsd:enumeration value="preservation"/>
+			<xsd:enumeration value="replacement"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- 
+ ******* resourceTypeDefinition  ********    
+                     ***************** referenced by typeOfResourceDefinition	   
+-->
+	<xsd:simpleType name="resourceTypeDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="text"/>
+			<xsd:enumeration value="cartographic"/>
+			<xsd:enumeration value="notated music"/>
+			<xsd:enumeration value="sound recording-musical"/>
+			<xsd:enumeration value="sound recording-nonmusical"/>
+			<xsd:enumeration value="sound recording"/>
+			<xsd:enumeration value="still image"/>
+			<xsd:enumeration value="moving image"/>
+			<xsd:enumeration value="three dimensional object"/>
+			<xsd:enumeration value="software, multimedia"/>
+			<xsd:enumeration value="mixed material"/>
+			<xsd:enumeration value=""/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--  
+******** roleDefinition *********************
+                     ***************** <role> is a subelement of <name> 
+-->
+	<xsd:complexType name="roleDefinition">
+		<xsd:sequence maxOccurs="unbounded">
+			<xsd:element ref="roleTerm"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--  
+***************roleTermDefinition *********************** 
+                    ***************** <roleTerm> is a subelement of <role> 
+                   ***************** which is a subelement of <name> 
+-->
+	<xsd:complexType name="roleTermDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="stringPlusAuthority">
+				<xsd:attribute name="type" type="codeOrTextDefinition"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- 
+*****************scriptTermDefinition ************************
+                    ***************** <scriptTerm> is a subelement of <language> 
+********************** new in 3.4 ******************************************
+-->
+	<xsd:complexType name="scriptTermDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="stringPlusAuthority">
+				<xsd:attribute name="type" type="codeOrTextDefinition"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- 
+*****************subjectNameDefinition ************************
+       ********************* New in 3.4 
+*** this is the definition used by (local) element <name> subelement of <subject>.
+*** It is different from <name> when used as a top-level element, because <name>
+*** has three new attributes, introduced in 3.4, which are not applicable when <name>
+*** is used as subelement of <subject>.  Thus <name> as subelement of <subject> is 
+*** not part of the MODS namespace. This definition, "subjectNameDefinition", however, 
+*** is part of the MODS namespace. 
+-->
+	<xsd:complexType name="subjectNameDefinition">
+		<xsd:complexContent>
+			<xsd:extension base="nameBaseDefinition"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- 
+*****************subjectTitleInfoDefinition ************************
+       ********************* New in 3.4 
+*** this is the definition used by (local) element <titleInfo> subelement of <subject>.
+*** It is different from <titleInfo> when used as a top-level element, because <titleInfo>
+*** has three new attributes, introduced in 3.4, which are not applicable when <titleInfo>
+*** is used as subelement of <subject>.  Thus <titleInfo> as subelement of <subject> is 
+*** not part of the MODS namespace. This definition, "subjectTitleDefinition", however, 
+*** is part of the MODS namespace. 
+-->
+	<xsd:complexType name="subjectTitleInfoDefinition">
+		<xsd:complexContent>
+			<xsd:extension base="titleInfoBaseDefinition">
+				<xsd:attribute name="type" type="titleInfoTypeAttributeDefinition"/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- 
+*****************temporalDefinition  ************************
+                    ***************** <temporal> is a subelement of <subject> 
+-->
+	<xsd:complexType name="temporalDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="dateDefinition">
+				<xsd:attributeGroup ref="authorityAttributeGroup"/>
+				<!-- authorityAttributeGroup is new in 3.4 and this temporalDefinition is created in order to accomodate it. -->
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--
+ 
+********** titleInfoBaseDefinition  **********  
+                    ***************** titleInfoBaseDefinition is referenced by titleInfoDefinition and subjectTitleInfoDefinition
+-->
+	<xsd:complexType name="titleInfoBaseDefinition">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element ref="title"/>
+			<xsd:element ref="subTitle"/>
+			<xsd:element ref="partNumber"/>
+			<xsd:element ref="partName"/>
+			<xsd:element ref="nonSort"/>
+		</xsd:choice>
+		<xsd:attributeGroup ref="idAuthorityXlinkLanguageDisplayLabelAttributeGroup"/>
+	</xsd:complexType>
+	<!--
+********** unstructuredTextDefinition ********** 
+                    ***************** unstructuredTextDefinition is the base definition for a number of elements that are simply
+                    *****************  strings plus several attributes: these elements include <abstract>, <note>, <title>, 
+                    *****************  <tableOfContents>, as well as <text> subelement of <part>
+-->
+	<xsd:complexType name="unstructuredTextDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="xsString">
+				<xsd:attribute name="displayLabel" type="xsd:string"/>
+				<xsd:attribute name="type" type="xsd:string"/>
+				<xsd:attributeGroup ref="xlink:simpleLink"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--
+ 
+********** urlDefinition   **********        
+                    ***************** <url> is a subelement of <location>      
+ -->
+	<xsd:complexType name="urlDefinition">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:anyURI">
+				<xsd:attribute name="dateLastAccessed" type="xsd:string"/>
+				<xsd:attribute name="displayLabel" type="xsd:string"/>
+				<xsd:attribute name="note" type="xsd:string"/>
+				<xsd:attribute name="access" type="urlAccessAttributeDefinition"/>
+				<xsd:attribute name="usage" type="urlUsageAttributeDefinition"/>
+				<!-- 
+                       ****************** this definition is broadened in 3.4. In 3.3, the value  
+                       ****************** "primary display" only was allowed. In 3.4, the value
+                       ****************** "display" is also allowed. And in addition the definition is
+                       ******************* generalized in 3.4 to apply to additional elements beyond <url>.
+               -->
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--
+********************* End of type definitions *********************
+There are a few more supporting definitions later; in part 4.
+
+
+*****************************************************************************************
+*****************************************************************************************
+
+                                             ********************************************************
+                                                     Part 3:    Element Declarations
+                                             ********************************************************
+      
+Following are the element of the MODS 3.x namespace, as of version 3.4, declared in alphabetical order. 
+
+*****************************************************************************************
+*****************************************************************************************
+-->
+	<xsd:element name="abstract" type="abstractDefinition"/>
+	<!--************************* <abstract> is a "top-level" element, i.e. a subelement of <mods> -->
+	<xsd:element name="accessCondition" type="xsString"/>
+	<!--************************* <accessCondition> is a "top-level" element, i.e. a subelement of <mods> -->
+	<xsd:element name="affiliation" type="xsString"/>
+	<!--************************* <affiliation> is a subelement of <name> -->
+	<xsd:element name="area" type="xsString"/>
+	<!--************************* <area> is a subelement of <hierarchicalGeographic>,  a subelement of <subject> -->
+	<xsd:element name="caption" type="xsString"/>
+	<!--************************* <caption> is a subelement of <detail>,  a subelement of <part> -->
+	<xsd:element name="cartographics" type="cartographicsDefinition"/>
+	<!--************************* <cartographics> is a subelement of <subject> -->
+	<xsd:element name="city" type="xsString"/>
+	<!--************************* <city> is a subelement of <hierarchicalGeographic>,  a subelement of <subject>-->
+	<xsd:element name="citySection" type="xsString"/>
+	<!--************************* <citySection> is a subelement of <hierarchicalGeographic>,  a subelement of <subject> -->
+	<xsd:element name="classification" type="classificationDefinition"/>
+	<!--************************* <classification> is a "top-level" element, i.e. a subelement of <mods> -->
+	<xsd:element name="continent" type="xsString"/>
+	<!--************************* <continent> is a subelement of <hierarchicalGeographic>,  a subelement of <subject> -->
+	<xsd:element name="coordinates" type="xsString"/>
+	<!--************************* <coordinates> is a subelement of <cartographics> -->
+	<xsd:element name="copyInformation" type="copyInformationDefinition"/>
+	<!--************************* <copyInformation> is a subelement of <holdingSimple>, a subelement of <location>   -->
+	<xsd:element name="copyrightDate" type="dateDefinition"/>
+	<!--************************* <copyrightDate> is a subelement of <originInfo> -->
+	<xsd:element name="country" type="xsString"/>
+	<!--************************* <country> is a subelement of <hierarchicalGeographic>,  a subelement of <subject> -->
+	<xsd:element name="county" type="xsString"/>
+	<!--************************* <county> is a subelement of <hierarchicalGeographic>,  a subelement of <subject> -->
+	<xsd:element name="date" type="dateBaseDefinition"/>
+	<!--************************* <date> is a subelement of <part> -->
+	<xsd:element name="dateCaptured" type="dateDefinition"/>
+	<!--************************* <dateCaptured> is a subelement of <originInfo> -->
+	<xsd:element name="dateCreated" type="dateDefinition"/>
+	<!--************************* <dateCreated> is a subelement of <originInfo> -->
+	<xsd:element name="dateIssued" type="dateDefinition"/>
+	<!--************************* <dateIssued> is a subelement of <originInfo> -->
+	<xsd:element name="dateModified" type="dateDefinition"/>
+	<!--************************* <dateModified> is a subelement of <originInfo> -->
+	<xsd:element name="dateOther" type="dateOtherDefinition"/>
+	<!--************************* <dateOther> is a subelement of <originInfo> -->
+	<xsd:element name="dateValid" type="dateDefinition"/>
+	<!--************************* <dateValid> is a subelement of <originInfo> -->
+	<xsd:element name="description" type="xsString"/>
+	<!--************************* <description> is a subelement of <name> -->
+	<xsd:element name="descriptionStandard" type="stringPlusAuthority"/>
+	<!--************************* <descriptionStandard> is a subelement of <recordInfo> -->
+	<xsd:element name="detail" type="detailDefinition"/>
+	<!--************************* <detail> is a subelement of <part> -->
+	<xsd:element name="digitalOrigin" type="digitalOriginDefinition"/>
+	<!--************************* <digitalOrigin> is a subelement of <physicalDescription> -->
+	<xsd:element name="displayForm" type="xsString"/>
+	<!--************************* <displayForm> is a subelement of <name> -->
+	<xsd:element name="edition" type="stringPlusSupplied"/>
+	<!--************************* <edition> is a subelement of <originInfo>
+                                            ****************** attribute "supplied" new  in 3.4-->
+	<xsd:element name="electronicLocator" type="xsString"/>
+	<!--************************* <electronicLocator> is a subelement of <copyInformation>, 
+                                          a subelement of <holdingSimple>, a subelement of <location>  -->
+	<xsd:element name="end" type="xsString"/>
+	<!--************************* <end> is a subelement of <extent>, a subelement of <part> -->
+	<xsd:element name="enumerationAndChronology" type="enumerationAndChronologyDefinition"/>
+	<!--************************* <enumerationAndChronology> is a subelement of <copyInformation, 
+                                     which is a subelement of <holdingSimple>,  which is a subelement of <location> -->
+	<xsd:element name="extension" type="extensionDefinition"/>
+	<!--************************* <extension> is a "top-level" element, i.e. a subelement of <mods>.
+                                                                    In addition, "extensionDefintion" is the basis for
+                                     the definition of <accessCondition> and  <holdingsExternal>-->
+	<xsd:element name="extent" type="stringPlusSupplied"/>
+	<!--************************* <extent> is a subelement of <physicalDescription> 
+                                                  ****************** attribute "supplied" new  in 3.4 -->
+	<xsd:element name="extraterrestrialArea" type="xsString"/>
+	<!--************************* <extraterrestrialArea> is a subelement of <hierarchicalGeographic>,  a subelement of <subject> -->
+	<xsd:element name="form" type="stringPlusAuthorityPlusType"/>
+	<!--************************* <form> is a subelement of <physicalDescription> -->
+	<xsd:element name="frequency" type="stringPlusAuthority"/>
+	<!--************************* <frequency> is a subelement of <originInfo> -->
+	<xsd:element name="genre" type="genreDefinition"/>
+	<!--************************* <genre> is a "top-level" element, i.e. a subelement of <mods>.
+                                                                    In addition, it is a subelement of <subject>.-->
+	<xsd:element name="geographic" type="stringPlusAuthority"/>
+	<!--************************* <geographic> is a subelement of <subject>-->
+	<xsd:element name="geographicCode" type="geographicCodeDefinition"/>
+	<!--************************* <geographicCode> is a subelement of <subject>-->
+	<xsd:element name="hierarchicalGeographic" type="hierarchicalGeographicDefinition"/>
+	<!--************************* <hierarchicalGeographic> is a subelement of <subject>-->
+	<xsd:element name="holdingExternal" type="extensionDefinition"/>
+	<!--************************* <holdingExternal> is a subelement of <location>-->
+	<xsd:element name="holdingSimple" type="holdingSimpleDefinition"/>
+	<!--************************* <holdingSimple> is a subelement of <location>-->
+	<xsd:element name="identifier" type="identifierDefinition"/>
+	<!--************************* <genre> is a "top-level" element, i.e. a subelement of <mods> -->
+	<xsd:element name="internetMediaType" type="xsString"/>
+	<!--************************* <internetMediaType> is a subelement of <physicalDescription>-->
+	<xsd:element name="island" type="xsString"/>
+	<!--************************* <island> is a subelement of <hierarchicalGeographic>,  a subelement of <subject> -->
+	<xsd:element name="issuance" type="issuanceDefinition"/>
+	<!--************************* <issuance> is a subelement of <originInfo> -->
+	<xsd:element name="language" type="languageDefinition"/>
+	<!--************************* <language> is a "top-level" element, i.e. a subelement of <mods> -->
+	<xsd:element name="languageOfCataloging" type="languageDefinition"/>
+	<!--************************* <languageOfCataloging> is a subelement of <recordInfo> -->
+	<xsd:element name="languageTerm" type="languageTermDefinition"/>
+	<!--************************* <languageTerm> is a subelement of <language> -->
+	<xsd:element name="list" type="xsString"/>
+	<!--************************* <list> is a subelement of <extent>, a subelement of <part> -->
+	<xsd:element name="location" type="locationDefinition"/>
+	<!--************************* <location> is a "top-level" element, i.e. a subelement of <mods> -->
+	<xsd:element name="name" type="nameDefinition"/>
+	<!--************************* <name> is a "top-level" element, i.e. a subelement of <mods> -->
+	<xsd:element name="namePart" type="namePartDefinition"/>
+	<!--************************* <namePart> is a subelement of <name> -->
+	<xsd:element name="nonSort" type="xsString"/>
+	<!--************************* <nonSort> is a subelement of <titleInfo> -->
+	<xsd:element name="note" type="noteDefinition"/>
+	<!--************************* <note> is a "top-level" element, i.e. a subelement of <mods>.
+                                  ****************** in addition to being a top-level element, <note> is also a subelement of   <physicalDescription>,   
+                                  ****************** and also  <copyInformation> which is  a subelement of <holdingSimple>, a subelement of <location>.-->
+	<xsd:element name="number" type="xsString"/>
+	<!--************************* <number> is a subelement of <detail>, a subelement of <part> -->
+	<xsd:element name="occupation" type="stringPlusAuthority"/>
+	<!--************************* <occupation> is a subelement of <subject> -->
+	<xsd:element name="originInfo" type="originInfoDefinition"/>
+	<!--************************* <originInfo> is a "top-level" element, i.e. a subelement of <mods> -->
+	<xsd:element name="part" type="partDefinition"/>
+	<!--************************* <part> is a "top-level" element, i.e. a subelement of <mods> -->
+	<xsd:element name="partName" type="xsString"/>
+	<!--************************* <partName> is a subelement of <titleInfo> -->
+	<xsd:element name="partNumber" type="xsString"/>
+	<!--************************* <partNumber> is a subelement of <titleInfo> -->
+	<xsd:element name="physicalDescription" type="physicalDescriptionDefinition"/>
+	<!--************************* <physicalDescription> is a "top-level" element, i.e. a subelement of <mods> -->
+	<xsd:element name="physicalLocation" type="physicalLocationDefinition"/>
+	<!--************************* <physicalLocation> is a subelement of <location> -->
+	<xsd:element name="place" type="placeDefinition"/>
+	<!--************************* <place> is a subelement of <originInfo> -->
+	<xsd:element name="placeTerm" type="placeTermDefinition"/>
+	<!--************************* <placeTerm> is a subelement <place>, a subelement of <originInfo> -->
+	<xsd:element name="projection" type="xsString"/>
+	<!--************************* <projection> is a subelement of <cartographics>, a subelement of <subject> -->
+	<xsd:element name="province" type="xsString"/>
+	<!--************************* <province> is a subelement of <hierarchicalGeographic>,  a subelement of <subject> -->
+	<xsd:element name="publisher" type="stringPlusSupplied"/>
+	<!--************************* <publisher> is a subelement <originInfo> 
+                                                  ****************** attribute "supplied" new  in 3.4 -->
+	<xsd:element name="recordChangeDate" type="dateDefinition"/>
+	<!--************************* <recordChangeDate> is a subelement <recordInfo> -->
+	<xsd:element name="recordContentSource" type="stringPlusAuthority"/>
+	<!--************************* <recordContentSource> is a subelement <recordInfo> -->
+	<xsd:element name="recordCreationDate" type="dateDefinition"/>
+	<!--************************* <recordCreationDate> is a subelement <recordInfo> -->
+	<xsd:element name="recordIdentifier" type="recordIdentifierDefinition"/>
+	<!--************************* <recordIdentifier> is a subelement <recordInfo> -->
+	<xsd:element name="recordInfo" type="recordInfoDefinition"/>
+	<!--************************* <recordInfo> is a "top-level" element, i.e. a subelement of <mods> -->
+	<xsd:element name="recordOrigin" type="xsString"/>
+	<!--************************* <recordOrigin> is a subelement <recordInfo> -->
+	<xsd:element name="reformattingQuality" type="reformattingQualityDefinition"/>
+	<!--************************* <reformattingQuality> is a subelement <physicalDescription> -->
+	<xsd:element name="region" type="xsString"/>
+	<!--************************* <region> is a subelement of <hierarchicalGeographic>,  a subelement of <subject> -->
+	<xsd:element name="relatedItem" type="relatedItemDefinition"/>
+	<!--************************* <relatedItem> is a "top-level" element, i.e. a subelement of <mods> -->
+	<xsd:element name="role" type="roleDefinition"/>
+	<!--************************* <role> is a subelement of <name> -->
+	<xsd:element name="roleTerm" type="roleTermDefinition"/>
+	<!--************************* <roleTerm> is a subelement <role>, a subelement of <name> -->
+	<xsd:element name="scale" type="xsString"/>
+	<!--************************* <scale> is a subelement of <cartographics>, a subelement of <subject> -->
+	<xsd:element name="scriptTerm" type="scriptTermDefinition"/>
+	<!--************************* <scriptTerm> is a subelement of  <language> -->
+	<xsd:element name="shelfLocator" type="xsString"/>
+	<!--************************* <shelfLocator> is a subelement of <copyInformation>, which is
+                                                                  a subelement of <holdingSimple>, which is a subelement of <location>  -->
+	<xsd:element name="start" type="xsString"/>
+	<!--************************* <start> is a subelement of <extent>, a subelement of part -->
+	<xsd:element name="state" type="xsString"/>
+	<!--************************* <state> is a subelement of <hierarchicalGeographic>,  a subelement of <subject> -->
+	<xsd:element name="subject" type="subjectDefinition"/>
+	<!--************************* <subject> is a "top-level" element, i.e. a subelement of <mods> -->
+	<xsd:element name="subLocation" type="xsString"/>
+	<!--************************* <subLocation> is a subelement of <copyInformation>, which is
+                                                                  a subelement of <holdingSimple>, which is a subelement of <location> -->
+	<xsd:element name="subTitle" type="xsString"/>
+	<!--************************* <subTitle> is a subelement of <titleInfo> -->
+	<xsd:element name="tableOfContents" type="tableOfContentsDefinition"/>
+	<!--************************* <tableOfContents> is a "top-level" element, i.e. a subelement of <mods> -->
+	<xsd:element name="targetAudience" type="targetAudienceDefinition"/>
+	<!--************************* <targetAudience> is a "top-level" element, i.e. a subelement of <mods> -->
+	<xsd:element name="temporal" type="temporalDefinition"/>
+	<!--************************* <temporal> is a subelement of <subject> -->
+	<xsd:element name="territory" type="xsString"/>
+	<!--************************* <territory> is a subelement of <hierarchicalGeographic>,  a subelement of <subject> -->
+	<xsd:element name="text" type="unstructuredTextDefinition"/>
+	<!--************************* <text> is a subelement of <part> -->
+	<xsd:element name="title" type="xsString"/>
+	<!--************************* <title> is a subelement of <titleInfo> -->
+	<xsd:element name="titleInfo" type="titleInfoDefinition"/>
+	<!--************************* <titleInfo> is a "top-level" element, i.e. a subelement of <mods> -->
+	<xsd:element name="topic" type="stringPlusAuthority"/>
+	<!--************************* <topic> is a subelement of <subject> -->
+	<xsd:element name="total" type="xsd:positiveInteger"/>
+	<!--************************* <total> is a subelement of <extent>,  a subelement of <part> -->
+	<xsd:element name="typeOfResource" type="typeOfResourceDefinition"/>
+	<!--************************* <typeOfResource> is a "top-level" element, i.e. a subelement of <mods> -->
+	<xsd:element name="url" type="urlDefinition"/>
+	<!--************************* <url> is a subelement of <location> -->
+	<!-- 
+******************** end of element declarations
+
+*****************************************************************************************
+*****************************************************************************************
+
+                                             ********************************************************
+                                                Part 4:    Auxiliary Definitions for Attributes
+                                             ********************************************************
+                     -  Auxiliary types for attribute combinations
+                     - Attribute Group Definitions 
+                     - Attribute definitions (simpleTypes)
+-->
+	<!--
+****************************************************
+-  Auxiliary types for attribute combinations
+
+*****************************************************
+-->
+	<!--                     
+************************* stringPlusAuthority  *************************     	
+
+            ******** stringPlusAuthority in 3.3 was simply xsd:string with an authority attribute. 
+            ********  in 3.4 there are two changes:
+            ********    (1) the  base is changed from xsd:string to xsString. 
+            ********           This combines xsd:string with the languageAttributeGroup:
+            ********            lang, xml:lang, script and transliteration. 
+            ********    (2) the  "authority", which was a single authority, is now an authorityGroup;
+                                see "authorityAttributeGroup".
+            ********  stringPlusAuthority is the base for a number of types defined in this schema (that immediately follow)
+            ********  as well as several elements: <form>, <frequency>, <geographic>, <occupation>, recordContentSource>
+            ********  and <topic>.
+ -->
+	<xsd:complexType name="stringPlusAuthority">
+		<xsd:simpleContent>
+			<xsd:extension base="xsString">
+				<xsd:attributeGroup ref="authorityAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--                     
+************************* stringPlusSupplied  *************************     	 
+
+            ******** stringPlusSupplied, new in 3.4, is the type for <edition>, <publisher>, and <extent>. In 3.4 for these three  
+             ******* elements the attribute "supplied" is added with the single value "yes". 
+ -->
+	<xsd:complexType name="stringPlusSupplied">
+		<xsd:simpleContent>
+			<xsd:extension base="xsString">
+				<xsd:attribute name="supplied" type="yesDefinition"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--                     
+************************* stringPlusAuthorityPlusType  *************************     	
+
+           *******  stringPlusAuthorityPlusType is the base for a number of definitions (see following) as well as the type for element <form>
+ -->
+	<xsd:complexType name="stringPlusAuthorityPlusType">
+		<xsd:simpleContent>
+			<xsd:extension base="stringPlusAuthority">
+				<xsd:attribute name="type" type="xsd:string"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--                     
+************************* stringPlusAuthorityPlusTypePlusDisplayLabel  *************************     	  
+
+           *******  stringPlusAuthorityPlusTypePlusDisplayLabel is the base for the next definition (see following) 
+           *******  as well as the type for element <genre>
+ -->
+	<xsd:complexType name="stringPlusAuthorityPlusTypePlusDisplayLabel">
+		<xsd:simpleContent>
+			<xsd:extension base="stringPlusAuthorityPlusType">
+				<xsd:attribute name="displayLabel" type="xsd:string"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!--                     
+************************* stringPlusAuthorityPlusTypePlusDisplayLabelPlusXlink  *************************     	  
+
+           *******  stringPlusAuthorityPlusTypePlusDisplayLabelPlusXlink is the type for element <physicalLocation>
+ -->
+	<xsd:complexType name="stringPlusAuthorityPlusTypePlusDisplayLabelPlusXlink">
+		<xsd:simpleContent>
+			<xsd:extension base="stringPlusAuthorityPlusTypePlusDisplayLabel">
+				<xsd:attributeGroup ref="xlink:simpleLink"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- 
+  
+********** xsString  
+
+           ************* xsString is new in version 3.4. The languageAttributeGroup 
+           *************  (lang, xml:lang, script and transliteration) applies now to every text element.  
+           *************  This is accomplished by changing "xsd:string"  to xsString wherever applicable,
+           *************  essentially, everywhere, that xsd:string occurred in 3.3 except for attributes, 
+           *************   extensions and restrictions.
+   -->
+	<xsd:complexType name="xsString">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attributeGroup ref="languageAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- 
+*************************************************************
+            Attribute Group Definitions 
+*************************************************************
+-->
+	<!--   
+ ********** authorityAttributeGroup   **********  	                       	  
+   -->
+	<xsd:attributeGroup name="authorityAttributeGroup">
+		<!-- new in 3.4 -->
+		<xsd:attribute name="authority" type="xsd:string"/>
+		<xsd:attributeGroup ref="authorityAndValueURIAttributeGroup"/>
+	</xsd:attributeGroup>
+	<!--   
+ ********** authorityAndValueURIAttributeGroup**********  	                       	  
+   -->
+	<xsd:attributeGroup name="authorityAndValueURIAttributeGroup">
+		<xsd:attribute name="authorityURI" type="xsd:anyURI"/>
+		<xsd:attribute name="valueURI" type="xsd:anyURI"/>
+		<!-- 	New authorityURI attribute identifies a controlled vocabulary.  New valueURI attribute identifies the specific value or term within the controlled vocabulary -->
+	</xsd:attributeGroup>
+	<!--   
+ ********** placeAuthorityAttributeGroup **********  	                       	  
+   -->
+	<xsd:attributeGroup name="placeAuthorityAttributeGroup">
+		<!-- new in 3.4 -->
+		<xsd:attributeGroup ref="authorityAndValueURIAttributeGroup"/>
+		<xsd:attribute name="authority" type="placeAuthorityAttributeDefinition"/>
+	</xsd:attributeGroup>
+	<!--   
+ ********** languageAuthorityAttributeGroup **********  	                       	  
+   -->
+	<xsd:attributeGroup name="languageAuthorityAttributeGroup">
+		<!-- new in 3.4 -->
+		<xsd:attributeGroup ref="authorityAndValueURIAttributeGroup"/>
+		<xsd:attribute name="authority" type="languageAuthorityAttributeDefinition"/>
+	</xsd:attributeGroup>
+	<!--   
+ ********** idAuthorityXlinkLanguageDisplayLabelAttributeGroup   **********  	 
+                    ****** used by <name>, <subject>, and <titleInfo>                      	  
+   -->
+	<xsd:attributeGroup name="idAuthorityXlinkLanguageDisplayLabelAttributeGroup">
+		<xsd:attribute name="ID" type="xsd:ID"/>
+		<xsd:attributeGroup ref="authorityAttributeGroup"/>
+		<xsd:attributeGroup ref="xlink:simpleLink"/>
+		<xsd:attributeGroup ref="languageAttributeGroup"/>
+		<xsd:attribute name="displayLabel" type="xsd:string"/>
+	</xsd:attributeGroup>
+	<!--  
+ ********** languageAttributeGroup   **********  	                       	  
+-->
+	<xsd:attributeGroup name="languageAttributeGroup">
+		<xsd:attribute name="lang" type="xsd:string"/>
+		<xsd:attribute ref="xml:lang"/>
+		<xsd:attribute name="script" type="xsd:string"/>
+		<xsd:attribute name="transliteration" type="xsd:string"/>
+	</xsd:attributeGroup>
+	<!--  
+ ********** languagePlusDisplayLabelAttributeGroup   **********  	                       	  
+-->
+	<xsd:attributeGroup name="languagePlusDisplayLabelAttributeGroup">
+		<xsd:attributeGroup ref="languageAttributeGroup"/>
+		<xsd:attribute name="displayLabel" type="xsd:string"/>
+	</xsd:attributeGroup>
+	<!--
+****************************************************
+  - Attribute definitions (simpleTypes)
+*****************************************************
+-->
+	<!--  
+   ********** codeOrTextDefinition 
+                  ******** used by type attribute  for elements that distinguish code from text:
+                  ******** <languageTerm>, <placeTerm>, <roleTerm>, <scriptTerm>
+ -->
+	<xsd:simpleType name="codeOrTextDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="code"/>
+			<xsd:enumeration value="text"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- 
+************************************************************************************
+-->
+	<!--
+Following three -  dateEncodingAttributeDefinition,  datePointAttributeDefinition,  dateQualifierAttributeDefinition -  
+are for the three attributes -  "encoding", "qualifier", and "point", for dateBaseDefinition.
+-->
+	<!-- 
+********** dateEncodingAttributeDefinition  
+-->
+	<xsd:simpleType name="dateEncodingAttributeDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="w3cdtf"/>
+			<xsd:enumeration value="iso8601"/>
+			<xsd:enumeration value="marc"/>
+			<!-- following two, "temper" and "edft", new in 3.4 -->
+			<xsd:enumeration value="temper"/>
+			<xsd:enumeration value="edtf"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- 
+********** datePointAttributeDefinition 
+-->
+	<xsd:simpleType name="datePointAttributeDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="start"/>
+			<xsd:enumeration value="end"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- 
+********** dateQualifierAttributeDefinition
+-->
+	<xsd:simpleType name="dateQualifierAttributeDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="approximate"/>
+			<xsd:enumeration value="inferred"/>
+			<xsd:enumeration value="questionable"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- 
+************************************************************************************
+-->
+	<!--  
+    ********** enumerationAndChronologyUnitTypeAttributeDefinition
+                    ******************* "unitType" attribute for <enumerationAndChronology>
+ -->
+	<xsd:simpleType name="enumerationAndChronologyUnitTypeAttributeDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="1"/>
+			<xsd:enumeration value="2"/>
+			<xsd:enumeration value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--                     
+************************* languageAuthorityAttributeDefinition  
+ -->
+	<xsd:simpleType name="languageAuthorityAttributeDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="rfc3066"/>
+			<xsd:enumeration value="iso639-2b"/>
+			<xsd:enumeration value="iso639-3"/>
+			<xsd:enumeration value="rfc4646"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--
+	 **********modsVersionAttributeDefinition
+
+************** "version" attribute of <mods>   
+
+                   ********  The version attribute, now, in 3.4, enumerates all 3.x versions. 
+                   ******** In earlier versions only the current  (latest) version was allowed. 
+                   ********  E.g. in version 3.3, the only allowable value for the version attribute was "3.3".
+                   ******** Henceforth for any version x.y, all values x.z where z is less than or
+                   ******** equal to y will be enumerated. 
+ -->
+	<xsd:simpleType name="modsVersionAttributeDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="3.4"/>
+			<xsd:enumeration value="3.3"/>
+			<xsd:enumeration value="3.2"/>
+			<xsd:enumeration value="3.1"/>
+			<xsd:enumeration value="3.0"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--  
+    ********** namePartTypeAttributeDefinition
+                    *******  "type" attribute of <namePart>
+ -->
+	<xsd:simpleType name="namePartTypeAttributeDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="date"/>
+			<xsd:enumeration value="family"/>
+			<xsd:enumeration value="given"/>
+			<xsd:enumeration value="termsOfAddress"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--  
+    ********** nameTypeAttributeDefinition
+                    ******** type attribute of <name>
+       -->
+	<xsd:simpleType name="nameTypeAttributeDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="personal"/>
+			<xsd:enumeration value="corporate"/>
+			<xsd:enumeration value="conference"/>
+			<xsd:enumeration value="family"/>
+			<!-- "family" is new in 3.4 -->
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--  
+   ********** noDefinition 
+                  ************used by various attributes whose only values may be "no":
+                  ************ attribute "shareable" of <abstract>, <tableOfContents>
+ -->
+	<xsd:simpleType name="noDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="no"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--  
+    ********** placeAuthorityAttributeDefinition
+ used by authority attribute for placeDefinition and geographic  **********  	                       	  
+ -->
+	<xsd:simpleType name="placeAuthorityAttributeDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="marcgac"/>
+			<xsd:enumeration value="marccountry"/>
+			<xsd:enumeration value="iso3166"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--                     
+************* relatedItemTypeAttributeDefinition  
+                   	  
+ -->
+	<xsd:simpleType name="relatedItemTypeAttributeDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="preceding"/>
+			<xsd:enumeration value="succeeding"/>
+			<xsd:enumeration value="original"/>
+			<xsd:enumeration value="host"/>
+			<xsd:enumeration value="constituent"/>
+			<xsd:enumeration value="series"/>
+			<xsd:enumeration value="otherVersion"/>
+			<xsd:enumeration value="otherFormat"/>
+			<xsd:enumeration value="isReferencedBy"/>
+			<!-- following two new in 3.4. -->
+			<xsd:enumeration value="references"/>
+			<xsd:enumeration value="reviewOf"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--  
+***************titleInfoTypeAttributeDefinition ***********************
+-->
+	<xsd:simpleType name="titleInfoTypeAttributeDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="abbreviated"/>
+			<xsd:enumeration value="translated"/>
+			<xsd:enumeration value="alternative"/>
+			<xsd:enumeration value="uniform"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--   
+********** urlAccessAttributeDefinition"**********  	
+   -->
+	<xsd:simpleType name="urlAccessAttributeDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="preview"/>
+			<xsd:enumeration value="raw object"/>
+			<xsd:enumeration value="object in context"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+		<!--   
+********** urlUsageAttributeDefinition"**********  	
+
+******************** This definition is for the usage attribute as used by <url> (subelement of <location>)
+
+******************** this note pertains both to this  (urlUsageAttributeDefinition) and the following ( usageAttributeDefinition) definitions.
+
+In earlier versions the usage attribute applied to element <url> (of <location>) only, and defined the single value "primary display".  
+In this version, 3.4, the usage attribute applies additionally to elements <classification>, <genre>, <language>, <subject>, <name>,<titleInfo>, 
+and <typeOfResource>.  
+
+However the value "primary display" is generalized to "primary", for these latter elements. 
+
+<url> retains the value "primary display" (for compatibility with earlier versions) although its use is depricated. So it has both values, "primary" and "primary display". For the other elements, only the value "primary" is valid. 
+
+Therefore, two definitions are needed for the usage attribute, one for <url> ("urlUsageAttributeDefinition") and one for the other elements ("usageAttributeDefinition")
+   -->
+	<xsd:simpleType name="urlUsageAttributeDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="primary display"/>
+			<xsd:enumeration value="primary"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--   
+********** usageAttributeDefinition"**********  	
+
+********************  See note above with urlUsageAttributeDefinition.
+******************** This definition is for the usage attribute as used by <classification>, <genre>, <language>, <subject>, <name>,<titleInfo>, <typeOfResource>
+   -->
+	<xsd:simpleType name="usageAttributeDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="primary"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--   
+
+********** yesDefinition 
+
+            ******************* yesDefinition used by various attributes whose only values may be "yes":
+                                                  "invalid" for <identifier>
+                                                   "supplied" for <titleInfo>
+                                                   "collection" for <typeOfResource>
+                                                   "manuscript" for <typeOfResource>
+                                                   "keyDate" for <date>
+                                                    "supplied" for <place>, <edition>, <publisher>, <extent>
+   -->
+	<xsd:simpleType name="yesDefinition">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="yes"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- -->
+</xsd:schema>

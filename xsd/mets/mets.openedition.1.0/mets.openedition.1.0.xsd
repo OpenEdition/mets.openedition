@@ -4,7 +4,7 @@
     targetNamespace="http://www.loc.gov/METS/" elementFormDefault="qualified"
     attributeFormDefault="unqualified">
     <xsd:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
-    <xsd:import namespace="http://www.loc.gov/mods/v3" schemaLocation="../../mods/mods.openedition.1.0/mods.openedition.xsd"/>
+    <xsd:import namespace="http://www.loc.gov/mods/v3" schemaLocation="../../mods/mods.openedition.1.0/mods.openedition.1.0.xsd"/>
     <xsd:element name="mets">
         <xsd:complexType>
             <xsd:sequence>

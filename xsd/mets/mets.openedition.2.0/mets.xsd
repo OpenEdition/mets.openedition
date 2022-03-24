@@ -318,6 +318,8 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
+			<!-- NOT USED -->
+			<!--
 			<xsd:element name="metsHdr" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation xml:lang="en"> 
@@ -502,6 +504,7 @@ OTHER: Use OTHER if none of the preceding values pertain and clarify the type of
 					<xsd:anyAttribute namespace="##other" processContents="lax"/>
 				</xsd:complexType>
 			</xsd:element>
+			-->
 			<xsd:element name="dmdSec" type="mdSecType" minOccurs="0" maxOccurs="unbounded">
 				<xsd:annotation>
 					<xsd:documentation xml:lang="en">
@@ -560,6 +563,8 @@ A &lt;fileGrp&gt; may contain zero or more &lt;fileGrp&gt; elements and or &lt;f
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
+			<!-- NOT USED -->
+			<!--
 			<xsd:element name="structLink" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation xml:lang="en"> 
@@ -572,12 +577,16 @@ A &lt;fileGrp&gt; may contain zero or more &lt;fileGrp&gt; elements and or &lt;f
 					</xsd:complexContent>
 				</xsd:complexType>
 			</xsd:element>
+			-->
+			<!-- NOT USED -->
+			<!--
 			<xsd:element name="behaviorSec" type="behaviorSecType" minOccurs="0" maxOccurs="unbounded">
 				<xsd:annotation>
 					<xsd:documentation xml:lang="en">
 						A behavior section element &lt;behaviorSec&gt; associates executable behaviors with content in the METS document by means of a repeatable behavior &lt;behavior&gt; element. This element has an interface definition &lt;interfaceDef&gt; element that represents an abstract definition of the set of behaviors represented by a particular behavior section. A &lt;behavior&gt; element also has a &lt;mechanism&gt; element which is used to point to a module of executable code that implements and runs the behavior defined by the interface definition. The &lt;behaviorSec&gt; element, which is repeatable as well as nestable, can be used to group individual behaviors within the structure of the METS document. Such grouping can be useful for organizing families of behaviors together or to indicate other relationships between particular behaviors.</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
+			-->
 		</xsd:sequence>
 		<xsd:attribute name="ID" type="xsd:ID" use="optional">
 			<xsd:annotation>
@@ -618,6 +627,8 @@ A &lt;fileGrp&gt; may contain zero or more &lt;fileGrp&gt; elements and or &lt;f
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
+			<!-- NOT USED -->
+			<!--
 			<xsd:element name="techMD" type="mdSecType" minOccurs="0" maxOccurs="unbounded">
 				<xsd:annotation>
 					<xsd:documentation xml:lang="en"> 
@@ -639,6 +650,7 @@ A &lt;fileGrp&gt; may contain zero or more &lt;fileGrp&gt; elements and or &lt;f
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
+			-->
 			<xsd:element name="digiprovMD" type="mdSecType" minOccurs="0" maxOccurs="unbounded">
 				<xsd:annotation>
 					<xsd:documentation xml:lang="en">
@@ -653,7 +665,10 @@ A &lt;fileGrp&gt; may contain zero or more &lt;fileGrp&gt; elements and or &lt;f
 				</xsd:documentation>
 			</xsd:annotation>
 		</xsd:attribute>
+		<!-- NOT USED -->
+		<!--
 		<xsd:anyAttribute namespace="##other" processContents="lax"/>
+		-->
 	</xsd:complexType>
 	<xsd:complexType name="fileGrpType">
 		<xsd:annotation>
@@ -677,6 +692,8 @@ A &lt;fileGrp&gt; may contain zero or more &lt;fileGrp&gt; elements and or &lt;f
 				</xsd:documentation>
 			</xsd:annotation>
 		</xsd:attribute>
+		<!-- NOT USED -->
+		<!--
 		<xsd:attribute name="VERSDATE" type="xsd:dateTime" use="optional">
 			<xsd:annotation>
 				<xsd:documentation xml:lang="en">VERSDATE (dateTime/O): An optional dateTime attribute specifying the date this version/fileGrp of the digital object was created.
@@ -696,6 +713,7 @@ A &lt;fileGrp&gt; may contain zero or more &lt;fileGrp&gt; elements and or &lt;f
 			</xsd:annotation>
 		</xsd:attribute>
 		<xsd:anyAttribute namespace="##other" processContents="lax"/>
+		-->
 	</xsd:complexType>
 	<xsd:complexType name="structMapType">
 		<xsd:annotation>
@@ -730,7 +748,10 @@ A &lt;fileGrp&gt; may contain zero or more &lt;fileGrp&gt; elements and or &lt;f
 				</xsd:documentation>
 			</xsd:annotation>
 		</xsd:attribute>
+		<!-- NOT USED -->
+		<!--
 		<xsd:anyAttribute namespace="##other" processContents="lax"/>
+		-->
 	</xsd:complexType>
 	<xsd:complexType name="divType">
 		
@@ -743,6 +764,8 @@ to clarify the differences between the ORDER, ORDERLABEL, and LABEL attributes f
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
+			<!-- NOT USED -->
+			<!--
 			<xsd:element name="mptr" minOccurs="0" maxOccurs="unbounded">
 				<xsd:annotation>
 					<xsd:documentation xml:lang="en"> 
@@ -766,6 +789,7 @@ to clarify the differences between the ORDER, ORDERLABEL, and LABEL attributes f
                	    </xsd:attribute>
 				</xsd:complexType>
 			</xsd:element>
+			-->
 			<xsd:element name="fptr" minOccurs="0" maxOccurs="unbounded">
 				<xsd:annotation>
 					<xsd:documentation xml:lang="en">
@@ -773,6 +797,8 @@ to clarify the differences between the ORDER, ORDERLABEL, and LABEL attributes f
 					</xsd:documentation>
 				</xsd:annotation>
 				<xsd:complexType>
+					<!-- NOT USED -->
+					<!--
 					<xsd:choice>
 						<xsd:element name="par" type="parType" minOccurs="0">
 							<xsd:annotation>
@@ -796,6 +822,7 @@ to clarify the differences between the ORDER, ORDERLABEL, and LABEL attributes f
 							</xsd:annotation>
 						</xsd:element>
 					</xsd:choice>
+					-->
 					<xsd:attribute name="ID" type="xsd:ID" use="optional">
 						<xsd:annotation>
 							<xsd:documentation xml:lang="en">ID (ID/O): This attribute uniquely identifies the element within the METS document, and would allow the element to be referenced unambiguously from another element or document via an IDREF or an XPTR. For more information on using ID attributes for internal and external linking see Chapter 4 of the METS Primer.
@@ -808,6 +835,8 @@ to clarify the differences between the ORDER, ORDERLABEL, and LABEL attributes f
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:attribute>
+					<!-- NOT USED -->
+					<!--
 				    <xsd:attribute name="CONTENTIDS" type="URIs" use="optional">
 			            <xsd:annotation>
 			            	<xsd:documentation xml:lang="en">CONTENTIDS (URI/O): Content IDs for the content represented by the &lt;fptr&gt; (equivalent to DIDL DII or Digital Item Identifier, a unique external ID).
@@ -815,6 +844,7 @@ to clarify the differences between the ORDER, ORDERLABEL, and LABEL attributes f
 			            </xsd:annotation>
                	    </xsd:attribute>
 					<xsd:anyAttribute namespace="##other" processContents="lax"></xsd:anyAttribute>
+					-->
 				</xsd:complexType>
 			</xsd:element>
 			<xsd:element name="div" type="divType" minOccurs="0" maxOccurs="unbounded"/>
@@ -856,6 +886,8 @@ to clarify the differences between the ORDER, ORDERLABEL, and LABEL attributes f
 			</xsd:annotation>
 		</xsd:attribute>
 	</xsd:complexType>
+	<!-- NOT USED -->
+	<!--
 	<xsd:complexType name="parType">
 		<xsd:annotation>
 			<xsd:documentation xml:lang="en">parType: Complex Type for Parallel Files
@@ -875,6 +907,9 @@ to clarify the differences between the ORDER, ORDERLABEL, and LABEL attributes f
 		<xsd:attributeGroup ref="ORDERLABELS"/>		
 		<xsd:anyAttribute namespace="##other" processContents="lax"></xsd:anyAttribute>
 	</xsd:complexType>
+	-->
+	<!-- NOT USED -->
+	<!--
 	<xsd:complexType name="seqType">
 		<xsd:annotation>
 			<xsd:documentation xml:lang="en">seqType: Complex Type for Sequences of Files
@@ -894,6 +929,9 @@ to clarify the differences between the ORDER, ORDERLABEL, and LABEL attributes f
 		<xsd:attributeGroup ref="ORDERLABELS"/>		
 		<xsd:anyAttribute namespace="##other" processContents="lax"></xsd:anyAttribute>
 	</xsd:complexType>
+	-->
+	<!-- NOT USED -->
+	<!--
 	<xsd:complexType name="areaType">
 		<xsd:annotation>
 			<xsd:documentation xml:lang="en">areaType: Complex Type for Area Linking
@@ -1036,6 +1074,9 @@ TCF.
 		<xsd:attributeGroup ref="ORDERLABELS"/>		
 		<xsd:anyAttribute namespace="##other" processContents="lax"></xsd:anyAttribute>
 	</xsd:complexType>
+	-->
+	<!-- NOT USED -->
+	<!--
 	<xsd:complexType name="structLinkType">
 		<xsd:annotation>
 			<xsd:documentation xml:lang="en">structLinkType: Complex Type for Structural Map Linking
@@ -1175,6 +1216,9 @@ TCF.
 		</xsd:attribute>
 		<xsd:anyAttribute namespace="##other" processContents="lax"/>
 	</xsd:complexType>
+	-->
+	<!-- NOT USED -->
+	<!--
 	<xsd:complexType name="behaviorSecType">
 		<xsd:annotation>
 			<xsd:documentation xml:lang="en">behaviorSecType: Complex Type for Behavior Sections
@@ -1211,6 +1255,9 @@ TCF.
 		</xsd:attribute>
 		<xsd:anyAttribute namespace="##other" processContents="lax"/>
 	</xsd:complexType>
+	-->
+	<!-- NOT USED -->
+	<!--
 	<xsd:complexType name="behaviorType">
 		<xsd:annotation>
 			<xsd:documentation xml:lang="en">behaviorType: Complex Type for Behaviors
@@ -1275,10 +1322,13 @@ TCF.
 			</xsd:annotation>
 		</xsd:attribute>
 	</xsd:complexType>
+	-->
+	<!-- NOT USED -->
+	<!-- 
 	<xsd:complexType name="objectType">
 		<xsd:annotation>
 			<xsd:documentation xml:lang="en">objectType: complexType for interfaceDef and mechanism elements
-				The mechanism and behavior elements point to external objects--an interface definition object or an executable code object respectively--which together constitute a behavior that can be applied to one or more &lt;div&gt; elements in a &lt;structMap&gt;.
+				The mechanism and behavior elements point to external objects an interface definition object or an executable code object respectively which together constitute a behavior that can be applied to one or more &lt;div&gt; elements in a &lt;structMap&gt;.
 			</xsd:documentation>
 		</xsd:annotation>		
 		<xsd:attribute name="ID" type="xsd:ID" use="optional">
@@ -1296,6 +1346,7 @@ TCF.
 		<xsd:attributeGroup ref="LOCATION"/>
 		<xsd:attributeGroup ref="xlink:simpleLink"/>
 	</xsd:complexType>
+	-->
 	<xsd:complexType name="mdSecType">
 		<xsd:annotation>
 			<xsd:documentation xml:lang="en">mdSecType: Complex Type for Metadata Sections
@@ -1354,11 +1405,14 @@ TCF.
 									The xml data wrapper element &lt;xmlData&gt; is used to contain XML encoded metadata. The content of an &lt;xmlData&gt; element can be in any namespace or in no namespace. As permitted by the XML Schema Standard, the processContents attribute value for the metadata in an &lt;xmlData&gt; is set to “lax”. Therefore, if the source schema and its location are identified by means of an XML schemaLocation attribute, then an XML processor will validate the elements for which it can find declarations. If a source schema is not identified, or cannot be found at the specified schemaLocation, then an XML validator will check for well-formedness, but otherwise skip over the elements appearing in the &lt;xmlData&gt; element. 												
 								</xsd:documentation>
 							</xsd:annotation>
+							<!-- NOT USED -->
+							<!--
 							<xsd:complexType>
 								<xsd:sequence>
 									<xsd:any namespace="##any" maxOccurs="unbounded" processContents="lax"/>
 								</xsd:sequence>
 							</xsd:complexType>
+							-->
 						</xsd:element>
 					</xsd:choice>
 					<xsd:attribute name="ID" type="xsd:ID" use="optional">
@@ -1408,7 +1462,10 @@ TCF.
 				</xsd:documentation>
 			</xsd:annotation>
 		</xsd:attribute>
-		<xsd:anyAttribute namespace="##other" processContents="lax" /> 
+		<!-- NOT USED -->
+		<!--
+		<xsd:anyAttribute namespace="##other" processContents="lax" />
+		-->
 	</xsd:complexType>
 	<xsd:complexType name="fileType">
 		<xsd:annotation>
@@ -1441,6 +1498,8 @@ TCF.
 					<xsd:attributeGroup ref="xlink:simpleLink"/>
 				</xsd:complexType>
 			</xsd:element>
+			<!-- NOT USED -->
+			<!--
 			<xsd:element name="FContent" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation xml:lang="en">
@@ -1597,6 +1656,7 @@ TCF.
 					</xsd:complexContent>
 				</xsd:complexType>
 			</xsd:element>
+			-->
 			<xsd:element name="file" type="fileType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
 		</xsd:sequence>
 		<xsd:attribute name="ID" type="xsd:ID" use="required">

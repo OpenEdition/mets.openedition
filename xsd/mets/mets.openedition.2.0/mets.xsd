@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xsd:schema targetNamespace="http://www.loc.gov/METS/" xmlns="http://www.loc.gov/METS/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xsd:schema 
+	targetNamespace="http://www.loc.gov/METS/" 
+	xmlns="http://www.loc.gov/METS/" 
+	xmlns:xlink="http://www.w3.org/1999/xlink" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:mods="http://www.loc.gov/mods/v3" 
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xsd:import namespace="http://www.w3.org/1999/xlink" schemaLocation="http://www.loc.gov/standards/xlink/xlink.xsd"/>
+  <xsd:import namespace="http://www.loc.gov/mods/v3" schemaLocation="http://lodel.org/ns/mods/mods.openedition.1.2/mods.openedition.1.2.xsd"/>
 	
   <xsd:annotation>
+  	
+  	
+  <xsd:documentation xml:lang="en">
+  	METS: Metadata Encoding and Transmission Standard
+  	
+  	Fork http://www.loc.gov/standards/mets/version1121/mets.xsd
+  	Remove unused elements and attributes
+  	Add OpenEdition constraints on div/@Type and dmdSec/mdWrap/xmlData
+	  	
+  	march, 2022
+  	Version openedition.2.0
+  </xsd:documentation>
+	  
 
     <xsd:documentation xml:lang="en">
       METS: Metadata Encoding and Transmission Standard
@@ -541,11 +561,54 @@ to clarify the differences between the ORDER, ORDERLABEL, and LABEL attributes f
 				</xsd:documentation>
 			</xsd:annotation>
 		</xsd:attribute>
-		<xsd:attribute name="TYPE" type="xsd:string" use="optional">
+		<xsd:attribute name="TYPE" use="optional">
 			<xsd:annotation>
 				<xsd:documentation xml:lang="en">TYPE (string/O): An attribute that specifies the type of structural division that the &lt;div&gt; element represents. Possible &lt;div&gt; TYPE attribute values include: chapter, article, page, track, segment, section etc. METS places no constraints on the possible TYPE values. Suggestions for controlled vocabularies for TYPE may be found on the METS website.
 				</xsd:documentation>
 			</xsd:annotation>
+			<!-- CUSTOM OE -->
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<!-- Types de la classe textes -->
+					<!-- (Revues) -->
+					<xsd:enumeration value="article"/>
+					<xsd:enumeration value="noticearcheologique"/>
+					<!-- (Livres) -->
+					<xsd:enumeration value="adressebibliographique"/>
+					<xsd:enumeration value="annexe"/>
+					<xsd:enumeration value="avantpropos"/>
+					<xsd:enumeration value="bibliographie"/>
+					<xsd:enumeration value="chapitre"/>
+					<xsd:enumeration value="index"/>
+					<xsd:enumeration value="pageliminaire"/>
+					<xsd:enumeration value="postface"/>
+					<xsd:enumeration value="preface"/>
+					<xsd:enumeration value="source"/>
+					<!-- (Mixte) -->
+					<xsd:enumeration value="chronique"/>
+					<xsd:enumeration value="compterendu"/>
+					<xsd:enumeration value="editorial"/>
+					<xsd:enumeration value="notedelecture"/>
+					<!-- Types de la classe fichiers -->
+					<xsd:enumeration value="imageaccroche"/>
+					<xsd:enumeration value="couverture1"/>
+					<xsd:enumeration value="couverture4"/>
+					<xsd:enumeration value="facsimile"/>
+					<xsd:enumeration value="tdm"/>
+					<xsd:enumeration value="image"/>
+					<xsd:enumeration value="image_annexe"/>
+					<xsd:enumeration value="fichier_annexe"/>
+					<!-- Types de la classe publications -->
+					<!-- (Revues) -->
+					<xsd:enumeration value="numero"/>
+					<xsd:enumeration value="rubrique"/>
+					<xsd:enumeration value="rubriqueannuelle"/>
+					<!-- (Livres) -->
+					<xsd:enumeration value="livre"/>
+					<!-- (Mixte) -->
+					<xsd:enumeration value="souspartie"/>
+				</xsd:restriction>
+			</xsd:simpleType>
 		</xsd:attribute>
 	    <xsd:attribute name="CONTENTIDS" type="URIs" use="optional">
 			<xsd:annotation>
@@ -617,6 +680,22 @@ to clarify the differences between the ORDER, ORDERLABEL, and LABEL attributes f
 									The xml data wrapper element &lt;xmlData&gt; is used to contain XML encoded metadata. The content of an &lt;xmlData&gt; element can be in any namespace or in no namespace. As permitted by the XML Schema Standard, the processContents attribute value for the metadata in an &lt;xmlData&gt; is set to “lax”. Therefore, if the source schema and its location are identified by means of an XML schemaLocation attribute, then an XML processor will validate the elements for which it can find declarations. If a source schema is not identified, or cannot be found at the specified schemaLocation, then an XML validator will check for well-formedness, but otherwise skip over the elements appearing in the &lt;xmlData&gt; element. 												
 								</xsd:documentation>
 							</xsd:annotation>
+							<!-- CUSTOM OE -->
+							<xsd:complexType>
+								<xsd:choice maxOccurs="unbounded">
+									<xsd:element ref="mods:titleInfo"/>
+									<xsd:element ref="mods:identifier"/>
+									<xsd:element ref="mods:originInfo"/>
+									<xsd:element ref="mods:name"/>
+									<xsd:element ref="mods:physicalDescription"/>
+									<xsd:element ref="mods:language"/>
+									<xsd:element ref="mods:part"/>
+									<xsd:element ref="mods:abstract"/>
+									<xsd:element ref="mods:accessCondition"/>
+									<xsd:element ref="mods:subject"/>
+									<xsd:element ref="mods:note"/>
+								</xsd:choice>
+							</xsd:complexType>
 						</xsd:element>
 					</xsd:choice>
 					<xsd:attribute name="ID" type="xsd:ID" use="optional">

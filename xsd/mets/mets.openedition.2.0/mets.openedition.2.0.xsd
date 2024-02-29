@@ -7,12 +7,16 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:mods="http://www.loc.gov/mods/v3" 
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
-  <xsd:import namespace="http://www.w3.org/1999/xlink" schemaLocation="http://www.loc.gov/standards/xlink/xlink.xsd"/>
-  <xsd:import namespace="http://www.loc.gov/mods/v3" schemaLocation="http://lodel.org/ns/mods/mods.openedition.1.2/mods.openedition.1.2.xsd"/>
+  <xsd:import namespace="http://www.w3.org/1999/xlink" schemaLocation="http://lodel.org/ns/xlink/xlink.xsd"/>
+  <xsd:import namespace="http://www.loc.gov/mods/v3" schemaLocation="http://lodel.org/ns/mods/draft/mods-3-8-OE.xsd"/>
 	
   <xsd:annotation>
   	
   	
+  <xsd:documentation xml:lang="en">
+	Import mods-3-8.xsd
+	October, 2023
+  </xsd:documentation>
   <xsd:documentation xml:lang="en">
   	METS: Metadata Encoding and Transmission Standard
   	
@@ -574,7 +578,6 @@ to clarify the differences between the ORDER, ORDERLABEL, and LABEL attributes f
 					<xsd:enumeration value="article"/>
 					<xsd:enumeration value="noticearcheologique"/>
 					<!-- (Livres) -->
-					<xsd:enumeration value="adressebibliographique"/>
 					<xsd:enumeration value="annexe"/>
 					<xsd:enumeration value="avantpropos"/>
 					<xsd:enumeration value="bibliographie"/>
@@ -592,12 +595,9 @@ to clarify the differences between the ORDER, ORDERLABEL, and LABEL attributes f
 					<!-- Types de la classe fichiers -->
 					<xsd:enumeration value="imageaccroche"/>
 					<xsd:enumeration value="couverture1"/>
-					<xsd:enumeration value="couverture4"/>
 					<xsd:enumeration value="facsimile"/>
-					<xsd:enumeration value="tdm"/>
-					<xsd:enumeration value="image"/>
 					<xsd:enumeration value="image_annexe"/>
-					<xsd:enumeration value="fichier_annexe"/>
+					<xsd:enumeration value="fichierannexe"/>
 					<!-- Types de la classe publications -->
 					<!-- (Revues) -->
 					<xsd:enumeration value="numero"/>

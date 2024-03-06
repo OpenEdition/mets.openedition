@@ -596,7 +596,7 @@ to clarify the differences between the ORDER, ORDERLABEL, and LABEL attributes f
 					<xsd:enumeration value="imageaccroche"/>
 					<xsd:enumeration value="couverture1"/>
 					<xsd:enumeration value="facsimile"/>
-					<xsd:enumeration value="image_annexe"/>
+					<xsd:enumeration value="image"/>
 					<xsd:enumeration value="fichierannexe"/>
 					<!-- Types de la classe publications -->
 					<!-- (Revues) -->

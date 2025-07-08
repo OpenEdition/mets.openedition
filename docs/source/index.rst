@@ -1,0 +1,35 @@
+[Draft] Documentation METS OpenEdition
+===============================================
+
+
+
+
+.. image:: _static/openedition.png
+
+.. note::
+
+      Cette documentation ....
+
+      Cliquez sur **ReadTheDocs** en bas du menu de gauche pour choisir la langue et la version.
+
+
+
+[texte à venir]
+
+
+.. warning::
+
+   Documentation en cours de rédaction 
+   
+
+
+
+
+   
+
+.. Indices and tables
+.. ==================
+
+.. * :ref:`genindex`
+.. * :ref:`modindex`
+.. * :ref:`search`

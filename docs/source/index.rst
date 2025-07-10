@@ -22,6 +22,12 @@
    Documentation en cours de rédaction 
    
 
+.. toctree::
+   :maxdepth: 2
+   :caption: À propos 
+
+   licence.rst
+   openedition.rst
 
 
 

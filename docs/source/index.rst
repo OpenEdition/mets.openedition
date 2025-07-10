@@ -26,7 +26,7 @@
    :maxdepth: 2
    :caption: À propos 
 
-   licence.rst
+   license.rst
    openedition.rst
 
 

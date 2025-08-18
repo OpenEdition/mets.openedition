@@ -28,6 +28,8 @@
 
    license.rst
    openedition.rst
+   doc_OEB.rst
+   doc_OEJ.rst
 
 
 

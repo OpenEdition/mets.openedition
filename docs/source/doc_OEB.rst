@@ -6,10 +6,10 @@ Description de l’archive ZIP contenant les fichiers
 
 À sa racine, l’archive ZIP doit contenir :
 
-- **un répertoire ``files``** contenant les illustrations utilisées dans les unités éditoriales, l’image de couverture du volume, ainsi que les images et fichiers annexes potentiels.  
+- **un répertoire** ``files`` contenant les illustrations utilisées dans les unités éditoriales, l’image de couverture du volume, ainsi que les images et fichiers annexes potentiels.  
   *Remarque :* pour les images utilisées dans les unités éditoriales, les formats admis par Lodel sont le JPG, le PNG et le SVG (ce dernier format étant non compatible pour les couvertures). Les images de couverture doivent, de plus, posséder une résolution de 300 DPI et mesurer au minimum 1400 pixels de large.
-- **un répertoire ``sources``** contenant les fichiers de chaque unité éditoriale au format XML TEI, Word le cas échéant, et PDF. Ces PDF (nommés « fac-similés » dans Lodel) doivent être en basse définition si le volume est issu de la numérisation ; dans les autres cas, il doit s’agir des PDF éditeurs en mode texte. Ce répertoire peut également contenir le PDF complet du volume. 
-- **un fichier METS** nommé **``MANIFEST.xml``**.
+- **un répertoire** ``sources`` contenant les fichiers de chaque unité éditoriale au format XML TEI, Word le cas échéant, et PDF. Ces PDF (nommés « fac-similés » dans Lodel) doivent être en basse définition si le volume est issu de la numérisation ; dans les autres cas, il doit s’agir des PDF éditeurs en mode texte. Ce répertoire peut également contenir le PDF complet du volume. 
+- **un fichier METS** nommé ``MANIFEST.xml``.
 
 La suite de cette documentation présente le contenu du fichier METS.
 
@@ -17,6 +17,7 @@ Description du fichier METS décrivant l’ouvrage
 ==============================================
 
 1. Trois sections sont obligatoires :
+
 - ``<structMap>``
 
 - ``<fileSec>``
@@ -24,16 +25,17 @@ Description du fichier METS décrivant l’ouvrage
 - ``<dmdSec>``
 2. Une section est optionnelle : ``<amdSec>``
 
-***
+
 
 Déclaration des schémas METS et MODS dans l’élément racine
 -----------------------------------------------
 
 .. code-block:: xml
-<?xml version="1.0" encoding="utf-8"?>
-  <mets:mets
-xsi:schemaLocation="http://www.loc.gov/METS/ http://lodel.org/ns/mets/mets.openedition.1.3/mets.openedition.1.3.xsd 
-http://www.loc.gov/mods/v3 http://lodel.org/ns/mods/mods.openedition.1.2/mods.openedition.1.2.xsd"
+
+  <?xml version="1.0" encoding="utf-8"?>
+    <mets:mets
+    xsi:schemaLocation="http://www.loc.gov/METS/ http://lodel.org/ns/mets/mets.openedition.1.3/mets.openedition.1.3.xsd 
+    http://www.loc.gov/mods/v3 http://lodel.org/ns/mods/mods.openedition.1.2/mods.openedition.1.2.xsd"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
            xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -43,34 +45,40 @@ http://www.loc.gov/mods/v3 http://lodel.org/ns/mods/mods.openedition.1.2/mods.op
 
 .. _mets-schema:
 
-***
+
 
 ``<structMap>``
 -----------------------------------------------
 
 La ``<structMap>`` décrit l’arborescence du volume. L’ordre des éléments dans la ``<structMap>`` définit l’ordre d’apparition de l’élément dans son parent (volume ou sous-partie) à l’import dans Lodel.
 
-**I. Les balises ``<mets:div>`` doivent s’imbriquer pour décrire l’arborescence volume/sous-parties/texte**
+**I. Les balises **``<mets:div>``** doivent s’imbriquer pour décrire l’arborescence volume/sous-parties/texte**
 
 Le contenu du livre est dans une balise englobante `<mets:div>`, deux attributs sont obligatoires : 
 
 - ``TYPE`` : dont la valeur doit être ``livre`` ;
 - ``DMDID`` : dont la valeur doit être égal à l’identifiant de la ``<dmdSec>`` décrivant le volume.
+
 1. Pour chaque balise ``<mets:div>`` enfant, un attribut est obligatoire :
+
 - ``TYPE``  : voir la liste des types autorisés ci-dessous (le schéma XML METS restreint l’utilisation des types possibles).
+
 2. Pour chaque balise ``<mets:div>`` enfant, les attributs facultatifs sont :
+
 - ``DMDID`` : doit être égal à l’identifiant de la ``<dmdSec>`` décrivant l’élément ``/mets:mets/mets:dmdSec/@ID`` (s’il n’y a pas d’élément ``<dmdSec>`` relatif à un élément ``<div>``, il ne faut pas indiquer cet attribut) ;
 - ``LABEL`` : titre du document (facultatif mais très utile pour faciliter la lecture de la ``<structMap>`` et repérer les erreurs).
+
 3. Les différentes versions des documents (.xml, .pdf, .docx), ainsi que les images et fichiers annexes potentiels, doivent être décrits dans la ``<structMap>`` avec la balise ``<mets:fptr>``. Le seul attribut obligatoire de ``<mets:fptr>`` est :
+
 - ``FILEID`` : identifiant du fichier utilisé dans la section ``/mets:mets/mets:fileSec/mets:fileGrp/mets:file/@ID``.
 
-**II. La ``<structMap>`` doit refléter la structure complète du volume**
+**II. La **``<structMap>``** doit refléter la structure complète du volume**
 
 Ce n’est pas un encodage de la table des matières.
 
 Les volumes comportent souvent des incohérences entre la table des matières et le corps de l’ouvrage. Par exemple, pour les unités éditoriale, les titres de la table des matières peuvent différer de ceux indiqués en début d’unité. Il faut donc utiliser les titres des documents et des parties disponibles dans le corps du volume, et non ceux de la table de matières. La table des matières sert à comprendre la structure du volume, mais en cas d’incohérence entre la table des matières et le contenu du volume, c’est l’organisation du contenu du volume qui doit être conservée. Il peut y avoir une part d’interprétation pour faire des choix et décrire correctement cette structure.
 
-**III. Types autorisés dans la ``<structMap>`` pour OpenEdition Books**
+**III. Types autorisés dans la **``<structMap>``** pour OpenEdition Books**
 
 **1. Types du modèle « textes »**
 
@@ -113,7 +121,7 @@ La balise ``<mets:fileSec>`` doit contenir au moins une balise ``<mets:fileGrp>`
 
 *Remarque :* une balise ``<mets:fileGrp>`` est obligatoire pour la couverture, les fac-similés des unités ou celui du volume et les fichiers Word issus de la numérisation. Elle est également obligatoire pour les images et les fichiers annexes potentiels. Elle est cependant optionnelle pour les images présentes dans les unités éditoriales. 
 
-**1. Les attributs obligatoires de ``<mets:file>`` sont :**
+**1. Les attributs obligatoires de **``<mets:file>``** sont :**
 
 - ``ID`` : un identifiant unique ;
 - ``MIMETYPE`` : le type MIME du fichier. 
@@ -170,15 +178,15 @@ Le fichier décrit ici est un PDF nommé « 7-24 ». L’identifiant de la secti
 *Exemple pour la couverture d’un livre :*
 
 .. code-block:: xml
-<mets:fileSec>
-  ...
-  <mets:fileGrp ID="img_files">
-    <mets:file ID="Y" MIMETYPE="image/png" CHECKSUM="W" CHECKSUMTYPE="WW">
-      <mets:FLocat LOCTYPE="URL" xlink:href="files/Y.png" />
-    </mets:file>
-  </mets:fileGrp>
-  ...
-</mets:fileSec>
+  <mets:fileSec>
+    ...
+    <mets:fileGrp ID="img_files">
+     <mets:file ID="Y" MIMETYPE="image/png" CHECKSUM="W" CHECKSUMTYPE="WW">
+       <mets:FLocat LOCTYPE="URL" xlink:href="files/Y.png" />
+     </mets:file>
+   </mets:fileGrp>
+   ...
+  </mets:fileSec>
 .. _mets-couv:
 
 ***
@@ -187,7 +195,9 @@ Le fichier décrit ici est un PDF nommé « 7-24 ». L’identifiant de la secti
 -----------------------------------------------
 **I. Présentation**
 
-Chaque élément ``<div>`` utilisé dans la ``<strucMap>`` peut être décrit dans une ``<dmdSec>`` en MODS ([http://www.loc.gov/standards/mods](http://www.loc.gov/standards/mods)).
+Chaque élément ``<div>`` utilisé dans la ``<strucMap>`` peut être décrit dans une ``<dmdSec>`` en `MODS`_.
+
+.. _MODS : http://www.loc.gov/standards/mods
 
 La balise ``<mets:dmdSec>`` doit contenir un attribut obligatoire :
 
@@ -210,42 +220,42 @@ Toutes les informations descriptives du volume doivent être présentées au for
 *Exemple pour le fac-similé du volume :*
 
 .. code-block:: xml
-<mets:dmdSec ID="livre1-facsimile">
-  <mets:mdWrap MDTYPE="MODS" MIMETYPE="text/xml">
-    <mets:xmlData>
-      <mods:titleInfo>
-        <mods:title>Titre du fac-similé</mods:title>
-      </mods:titleInfo>
-    </mets:xmlData>
-  </mets:mdWrap>
-</mets:dmdSec>
+  <mets:dmdSec ID="livre1-facsimile">
+   <mets:mdWrap MDTYPE="MODS" MIMETYPE="text/xml">
+     <mets:xmlData>
+       <mods:titleInfo>
+         <mods:title>Titre du fac-similé</mods:title>
+       </mods:titleInfo>
+     </mets:xmlData>
+   </mets:mdWrap>
+  </mets:dmdSec>
 .. _mets-facsimile_volume:
 
 
-Où l’`ID="XXXX"` de cette section renvoie dans la ``<structMap>`` à ``<mets:div DMDID >``.
+Où l’``ID="XXXX"`` de cette section renvoie dans la ``<structMap>`` à ``<mets:div DMDID >``.
 
 *Par exemple :*
 
 .. code-block:: xml
-<mets:structMap>
-  <mets:div TYPE="livre" DMDID="livre1>
-    <mets:div TYPE="facsimile" LABEL="fac-similé" DMDID="livre1-facsimile">
-      <mets:fptr FILEID="livre1-pdf"/>
-    </mets:div>
-  </mets:div>
-</mets:structMap>
+  <mets:structMap>
+    <mets:div TYPE="livre" DMDID="livre1>
+      <mets:div TYPE="facsimile" LABEL="fac-similé" DMDID="livre1-facsimile">
+       <mets:fptr FILEID="livre1-pdf"/>
+     </mets:div>
+   </mets:div>
+  </mets:structMap>
 .. _mets-structmap:
 
 On retrouve l’identifiant de ce PDF (``FILEID="YYYY"``) dans ``<mets:fileSec>`` :
 
 .. code-block:: xml
-<mets:fileSec>
-  <mets:fileGrp ID="pdf_files">
-    <mets:file ID="livre1-pdf" MIMETYPE="application/pdf" CHECKSUM="527373ff4d089fdf38d4d2794ecd8787" CHECKSUMTYPE="MD5">
-      <mets:FLocat LOCTYPE="URL" xlink:href="livre1.pdf" />
-    </mets:file>
-  </mets:fileGrp>
-</mets:fileSec>
+  <mets:fileSec>
+    <mets:fileGrp ID="pdf_files">
+      <mets:file ID="livre1-pdf" MIMETYPE="application/pdf" CHECKSUM="527373ff4d089fdf38d4d2794ecd8787" CHECKSUMTYPE="MD5">
+        <mets:FLocat LOCTYPE="URL" xlink:href="livre1.pdf" />
+      </mets:file>
+    </mets:fileGrp>
+  </mets:fileSec>
 .. _mets-id:
 
 *Remarque :* les métadonnées du type ``souspartie`` sont nécessaires, mais réduites. Dans la plupart des cas il n’y aura que le titre.  
@@ -255,56 +265,56 @@ XPath : ``//mods:titleInfo/mods:title``
 *Par exemple pour une sous-partie :* 
 
 .. code-block:: xml
-<mets:dmdSec ID="Z">
-  <mets:mdWrap MDTYPE="MODS" MIMETYPE="text/xml">
-    <mets:xmlData>
-      <mods:titleInfo>
-        <mods:title>Titre de la sous-partie</mods:title>
-      </mods:titleInfo>
-    </mets:xmlData>
-  </mets:mdWrap>
-</mets:dmdSec>
+  <mets:dmdSec ID="Z">
+    <mets:mdWrap MDTYPE="MODS" MIMETYPE="text/xml">
+     <mets:xmlData>
+        <mods:titleInfo>
+          <mods:title>Titre de la sous-partie</mods:title>
+       </mods:titleInfo>
+     </mets:xmlData>
+    </mets:mdWrap>
+  </mets:dmdSec>
 .. _mets-sous-partie:
 
 Lorsqu’est déclaré dans la ``<structMap>`` un élément de ``TYPE="souspartie"`` :
 
 .. code-block:: xml
-<mets:structMap>
-  <mets:div TYPE="numero" DMDID="X">        
-    <mets:div TYPE="souspartie" LABEL="Titre de la sous-partie" DMDID="Z">
-      <mets:div TYPE="article" LABEL="Titre du premier article de la sous-partie">
-        <mets:fptr FILEID="Y-tei1"/>
-        <mets:fptr FILEID="Y-pdf1"/>
-      </mets:div>
-    </mets:div>
-  </mets:div>            
-</mets:structMap> 
+  <mets:structMap>
+    <mets:div TYPE="numero" DMDID="X">        
+     <mets:div TYPE="souspartie" LABEL="Titre de la sous-partie" DMDID="Z">
+        <mets:div TYPE="article" LABEL="Titre du premier article de la sous-partie">
+          <mets:fptr FILEID="Y-tei1"/>
+          <mets:fptr FILEID="Y-pdf1"/>
+        </mets:div>
+     </mets:div>
+    </mets:div>            
+  </mets:structMap> 
 .. _mets-sous-partie_bis:
 
 *Exemple pour la couverture :* 
 
 .. code-block:: xml
-<mets:dmdSec ID="X">
-  <mets:mdWrap MDTYPE="MODS" MIMETYPE="text/xml">
-    <mets:xmlData>
-      <mods:titleInfo>
-        <mods:title>Titre de l’image de couverture</mods:title>
-      </mods:titleInfo>
-    </mets:xmlData>
-  </mets:mdWrap>
-</mets:dmdSec>
+  <mets:dmdSec ID="X">
+    <mets:mdWrap MDTYPE="MODS" MIMETYPE="text/xml">
+      <mets:xmlData>
+        <mods:titleInfo>
+         <mods:title>Titre de l’image de couverture</mods:title>
+        </mods:titleInfo>
+      </mets:xmlData>
+    </mets:mdWrap>
+  </mets:dmdSec>
 .. _mets-couv_bis:
 
 Lorsqu’est déclaré dans la ``<structMap>`` un élément de TYPE ``couverture1`` :
 
 .. code-block:: xml
-<mets:structMap>
-  ...
-  <mets:div TYPE="couverture1" LABEL="Titre de l’image de couverture" DMDID="X">
-    <mets:fptr FILEID="Y" />
-  </mets:div>
-  ...
-<mets:structMap>
+  <mets:structMap>
+    ...
+    <mets:div TYPE="couverture1" LABEL="Titre de l’image de couverture" DMDID="X">
+     <mets:fptr FILEID="Y" />
+    </mets:div>
+    ...
+  <mets:structMap>
 .. _mets-couv_ter:
 
 *Remarque :* Sur OpenEdition Books, tout élément de texte sans titre au début d’une sous-partie doit être traité en tant qu’unité documentaire différente avec un titre *ad hoc* (le type de document conseillé est ``avantpropos``).
@@ -408,7 +418,6 @@ Sous réserve d'activation de nouvelles langues :
 
 Dautres langues sont disponibles. Vous pouvez vous rapprocher de notre équipe pour tout renseignement complémentaire.
 
-***
 
 ``<amdSec>``
 -----------------------------------------------
@@ -419,18 +428,18 @@ Il faut renseigner une balise ``<amdSec>`` si l’on souhaite indiquer la métho
 - ``reformatted digital`` : ressource créée par la numérisation d’une ressource analogique originale (à utiliser pour l’OCR notamment).
 
 .. code-block:: xml
-<mets:amdSec>
-  <mets:digiprovMD ID="AMDID_XXX">
-    mets:mdWrap MDTYPE="MODS" MIMETYPE="text/xml">
+  <mets:amdSec>
+    <mets:digiprovMD ID="AMDID_XXX">
+     mets:mdWrap MDTYPE="MODS" MIMETYPE="text/xml">
                 <mets:xmlData>
                     <mods:physicalDescription><mods:digitalOrigin>reformatted digital</mods:digitalOrigin></mods:physicalDescription>
                 </mets:xmlData>
             </mets:mdWrap>
-  </mets:digiprovMD>
-</mets:amdSec>
+    </mets:digiprovMD>
+  </mets:amdSec>
 .. _mets-amdsec:
 
-La ``<dmdSec>`` de ce volume devra faire référence, à l’aide de l’attribut ``AMDID``, à l’`ID` spécifié dans la balise ``<amdSec>``.
+La ``<dmdSec>`` de ce volume devra faire référence, à l’aide de l’attribut ``AMDID``, à l’``ID`` spécifié dans la balise ``<amdSec>``.
 
 *Exemple :*  
 ``<mets:dmdSec ID="IDLIVRE" ADMID="AMDID_XXX">``

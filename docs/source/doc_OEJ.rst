@@ -9,12 +9,14 @@ Description de l’archive ZIP contenant les fichiers
 
 - **un répertoire** ``files`` contenant les illustrations utilisées dans les unités éditoriales, ainsi que l’image de couverture du volume.  
 *Remarque :* pour les images, les formats admis par Lodel sont le JPG, le PNG et le SVG (ce dernier format étant non compatible pour les couvertures). Les images de couverture doivent, de plus, posséder une résolution de 300 DPI et mesurer au minimum 1400 pixels de large.
+
 - **un répertoire** ``sources`` contenant les fichiers de chaque unité éditoriale au format XML TEI et PDF. Ces PDF (nommés « fac-similés » dans Lodel) doivent être en basse définition si le volume est issu de la numérisation ; dans les autres cas, il doit s'agir des PDF éditeurs en mode texte. Ce répertoire peut également contenir le PDF complet du volume ; 
+
 - **un fichier METS** nommé *``MANIFEST.xml``.
 
 La suite de cette documentation présente le contenu du fichier METS.
 
-Description du fichier METS décrivant l’ouvrage
+Description du fichier METS décrivant le volume
 ==============================================
 
 1. Trois sections sont obligatoires :
@@ -30,6 +32,7 @@ Déclaration des schémas METS et MODS dans l’élément racine
 -----------------------------------------------
 
 .. code-block:: xml
+
   <?xml version="1.0" encoding="utf-8"?>
     <mets:mets
   xsi:schemaLocation="http://www.loc.gov/METS/ http://lodel.org/ns/mets/mets.openedition.1.3/mets.openedition.1.3.xsd 
@@ -40,9 +43,10 @@ Déclaration des schémas METS et MODS dans l’élément racine
            xmlns:mods="http://www.loc.gov/mods/v3"
            xmlns:mets="http://www.loc.gov/METS/"
            xmlns:marcrel="http://www.loc.gov/loc.terms/relators">
+
 .. _mets-schema:
 
-***
+
 
 
 ``<structMap>``
@@ -50,7 +54,7 @@ Déclaration des schémas METS et MODS dans l’élément racine
 
 La ``<structMap>`` décrit l'arborescence du volume. L’ordre des éléments dans la ``<structMap>`` définit l’ordre d’apparition de l’élément dans son parent (volume ou sous-partie) à l’import dans Lodel.
 
-**I. Les balises ``<mets:div>`` doivent s’imbriquer pour décrire l’arborescence volume/sous-parties/texte.**
+**I. Les balises** ``<mets:div>`` **doivent s’imbriquer pour décrire l’arborescence volume/sous-parties/texte.**
 
 1. Pour chaque balise ``<mets:div>``, les attributs obligatoires sont :
 
@@ -61,21 +65,21 @@ La ``<structMap>`` décrit l'arborescence du volume. L’ordre des éléments da
 - ``DMDID`` : doit être égal à l’identifiant de la ``<dmdSec>`` décrivant l'élément ``/mets:mets/mets:dmdSec/@ID`` (s’il n’y a pas d’élément ``<dmdSec>`` relatif à un élément ``<div>``, il ne faut pas indiquer cet attribut) ;
 - ``LABEL`` : titre du document (facultatif mais très utile pour faciliter la lecture de la ``<structMap>`` et repérer les erreurs).
 
-3. Les différentes versions des documents (.xml, .pdf, .doc) doivent être décrites dans la ``<structMap>`` avec la balise `<mets:fptr>`.
+3. Les différentes versions des documents (.xml, .pdf, .docx) doivent être décrites dans la ``<structMap>`` avec la balise ``<mets:fptr>``.
 Le seul attribut obligatoire de ``<mets:fptr>`` est :
 
 - ``FILEID`` : identifiant du fichier utilisé dans la section ``/mets:mets/mets:fileSec/mets:fileGrp/mets:file/@ID``.
 
 
 
-**II. La **``<structMap>``** doit refléter la structure complète du volume**
+**II. La** ``<structMap>`` **doit refléter la structure complète du volume**
 
 Ce n’est pas un encodage de la table des matières.
 
 Les volumes comportent souvent des incohérences entre la table des matières et le corps de l'ouvrage. Par exemple : pour les unités éditoriale, les titres de la table des matières peuvent différer de ceux indiqués en début d’unité. Il faut donc utiliser les titres des documents et des parties disponibles dans le corps du volume, et non ceux de la table de matières. La table des matières sert à comprendre la structure du volume, mais en cas d’incohérence entre la table des matières et le contenu du volume, c’est l’organisation du contenu du volume qui doit être conservée. Il peut y avoir une part d’interprétation pour faire des choix et décrire correctement cette structure.
 
 
-**III. Types autorisés dans la **``<structMap>``
+**III. Types autorisés dans la** ``<structMap>``
 
 **1. Types de la classe « textes »**
 
@@ -110,7 +114,7 @@ La balise ``<mets:fileSec>`` doit contenir au moins une balise ``<mets:fileGrp``
 
 *Remarque :* une balise ``<mets:fileGrp>`` est obligatoire pour la couverture, les fac-similés des unités ou celui du volume. Elle est également obligatoire pour les images et les fichiers annexes potentiels. Elle est cependant optionnelle pour les images présentes dans les unités éditoriales. 
   
-**1. Les attributs obligatoires de **<mets:file>** sont :**
+**1. Les attributs obligatoires de** ``<mets:file>`` **sont :**
 
 - ``ID`` : un identifiant unique ;
 - ``MIMETYPE`` : le type MIME du fichier ;
@@ -176,7 +180,7 @@ La balise ``<mets:dmdSec>`` doit contenir un attribut obligatoire :
 
 Les éléments ``<dmdSec>`` sont nécessaires pour : 
 
-- tous les objets de classe « fichiers » : types ``imageaccroche``, ``couverture1`` et ``facsimile`` : 
+- tous les objets de classe « fichiers » : types ``imageaccroche``, ``couverture1`` et ``facsimile`` ; 
 - et toutes les publications : ``numero`` et ``souspartie``
 
 qui sont présents dans ``<structMap>`` et auxquels des métadonnées sont associées. 
@@ -352,11 +356,17 @@ XPath : ``./mods:identifier[@type="isbn"]``
 ■ **Directeur(s) de la publication**  
 
 - Nom de famille :  
+
 XPath : ``./mods:name[mods:role/mods:roleTerm/text()="director"]/mods:namePart[@type="family"]``
+
 - Prénom :  
+
 XPath : ``./mods:name[mods:role/mods:roleTerm/text()="director"]/mods:namePart[@type="given"]``
+
 - Description :  
+
 XPath : ``./mods:name[mods:role/mods:roleTerm/text()="director"]/mods:description``  
+
 Ce champ peut contenir du texte brut ou des éléments HTML simples  (``<p>``, ``<em>``, ``<strong>``, ``<br/>``, ``<i>``, ``<sub>``, ``<sup>``, ``<span style="font-variant:small-caps;">``). Pour permettre la validation XML du fichier METS, il faut placer le code HTML dans un CDATA.
 
 *Exemple :* ``<![CDATA[ <p>Lorem <em>Ipsum</em></p> ]]>``
@@ -372,16 +382,27 @@ XPath : ``./mets:xmlData/mods:physicalDescription/mods:note``
 Les éléments d'indexations doivent être placés dans des balises ``<mods:subjects>``, distingués par un attribut ``authority`` et parfois ``xml:lang`` 
 
 - Mots-clés en français :  
+
 XPath : ``./mods:subject[@authority="motsclesfr"]/mods:topic``
+
 - Keywords :  
+
 XPath : ``./mods:subject[@authority="motsclesen"]/mods:topic``
+
 - Parole chiave :  
+
 XPath : ``./mods:subject[@authority="motsclesit"]/mods:topic``
+
 - Schlagwortindex :  
+
 XPath : ``./mods:subject[@authority="motsclesde"]/mods:topic``
+
 - Palabras claves :  
+
 XPath : ``./mods:subject[@authority="motscleses"]/mods:topic``
+
 - Palavras chaves :  
+
 XPath : ``./mods:subject[@authority="motsclespt"]/mods:topic``
 
 *Remarque :* les entrées d’index ne s’affichent pas au niveau du sommaire du numéro, elles sont en revanche visibles sur les pages d’index.
@@ -392,7 +413,6 @@ Elles ne sont pas nécessaires, car elles sont déjà incluses dans les fichiers
  
 XPath : ``//mods:titleInfo/mods:title``
 
-***
 
 ``<amdSec>``
 -----------------------------------------------
@@ -430,7 +450,7 @@ Il faudra ajouter :
       </mets:mdWrap>
     </mets:digiprovMD>
   </mets:amdSec>
-  
+
 .. _mets-amdsec_bis:
 
 La ``<dmdSec>`` de ce volume devra faire référence, à l’aide de l’attribut ``AMDID``, à l’`ID` spécifié dans la balise ``<amdSec>``.

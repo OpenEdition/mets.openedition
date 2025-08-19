@@ -152,29 +152,31 @@ La balise ``<mets:file>`` contient une balise ``<mets:FLocat>`` pointant vers le
 *Exemple pour le fac-similé d’un livre :*
 
 .. code-block:: xml
-<mets:fileSec>
-  <mets:fileGrp ID="pdf_files">
-    <mets:file ID="ID_2001_05_1_pdf" USE="document" MIMETYPE="application/pdf">
+
+  <mets:fileSec>
+    <mets:fileGrp ID="pdf_files">
+      <mets:file ID="ID_2001_05_1_pdf" USE="document" MIMETYPE="application/pdf">
                 <mets:FLocat LOCTYPE="URL" xlink:href="sources/volume.pdf"/>
-        </mets:file>
-  </mets:fileGrp>
-</mets:fileSec>
+      </mets:file>
+    </mets:fileGrp>
+  </mets:fileSec>
+
 .. _mets-facsimile:
 
 Le fichier décrit ici est un PDF nommé « 7-24 ». L’identifiant de la section ``<fileSec>`` de ce PDF (soit « ID7-24-pdf1 ») est présent dans ``<structMap>`` :
 
 .. code-block:: xml
 
-<mets:structMap>
-  <mets:div TYPE="livre" DMDID="ID_2001_05_1">
-    <mets:div TYPE="souspartie" LABEL="titre de la sous-partie" DMDID="ID_2001_05_1-section1">
-      <mets:div TYPE="chapitre" LABEL="Titre du chapitre">
-        <mets:fptr FILEID="ID7-24-tei1"/>
-        <mets:fptr FILEID="ID7-24-pdf1"/>
+  <mets:structMap>
+    <mets:div TYPE="livre" DMDID="ID_2001_05_1">
+      <mets:div TYPE="souspartie" LABEL="titre de la sous-partie" DMDID="ID_2001_05_1-section1">
+        <mets:div TYPE="chapitre" LABEL="Titre du chapitre">
+          <mets:fptr FILEID="ID7-24-tei1"/>
+          <mets:fptr FILEID="ID7-24-pdf1"/>
+        </mets:div>
       </mets:div>
     </mets:div>
-  </mets:div>
-</mets:structMap>
+  </mets:structMap>
 
 .. _mets-descirption_fichier:
 
@@ -266,7 +268,7 @@ On retrouve l’identifiant de ce PDF (``FILEID="YYYY"``) dans ``<mets:fileSec>`
       </mets:file>
     </mets:fileGrp>
   </mets:fileSec>
-  
+
 .. _mets-id:
 
 *Remarque :* les métadonnées du type ``souspartie`` sont nécessaires, mais réduites. Dans la plupart des cas il n’y aura que le titre.  
@@ -276,6 +278,7 @@ XPath : ``//mods:titleInfo/mods:title``
 *Par exemple pour une sous-partie :* 
 
 .. code-block:: xml
+
   <mets:dmdSec ID="Z">
     <mets:mdWrap MDTYPE="MODS" MIMETYPE="text/xml">
      <mets:xmlData>
@@ -285,11 +288,13 @@ XPath : ``//mods:titleInfo/mods:title``
      </mets:xmlData>
     </mets:mdWrap>
   </mets:dmdSec>
+
 .. _mets-sous-partie:
 
 Lorsqu’est déclaré dans la ``<structMap>`` un élément de ``TYPE="souspartie"`` :
 
 .. code-block:: xml
+
   <mets:structMap>
     <mets:div TYPE="numero" DMDID="X">        
      <mets:div TYPE="souspartie" LABEL="Titre de la sous-partie" DMDID="Z">
@@ -300,11 +305,13 @@ Lorsqu’est déclaré dans la ``<structMap>`` un élément de ``TYPE="sousparti
      </mets:div>
     </mets:div>            
   </mets:structMap> 
+
 .. _mets-sous-partie_bis:
 
 *Exemple pour la couverture :* 
 
 .. code-block:: xml
+
   <mets:dmdSec ID="X">
     <mets:mdWrap MDTYPE="MODS" MIMETYPE="text/xml">
       <mets:xmlData>
@@ -314,11 +321,13 @@ Lorsqu’est déclaré dans la ``<structMap>`` un élément de ``TYPE="sousparti
       </mets:xmlData>
     </mets:mdWrap>
   </mets:dmdSec>
+
 .. _mets-couv_bis:
 
 Lorsqu’est déclaré dans la ``<structMap>`` un élément de TYPE ``couverture1`` :
 
 .. code-block:: xml
+
   <mets:structMap>
     ...
     <mets:div TYPE="couverture1" LABEL="Titre de l’image de couverture" DMDID="X">
@@ -326,6 +335,7 @@ Lorsqu’est déclaré dans la ``<structMap>`` un élément de TYPE ``couverture
     </mets:div>
     ...
   <mets:structMap>
+
 .. _mets-couv_ter:
 
 *Remarque :* Sur OpenEdition Books, tout élément de texte sans titre au début d’une sous-partie doit être traité en tant qu’unité documentaire différente avec un titre *ad hoc* (le type de document conseillé est ``avantpropos``).
@@ -349,6 +359,7 @@ Il n'est pas possible d'ajouter des enrichissements typographiques dans le sous-
 
 
 ■ **Titre(s) traduit(s) du volume**  
+
 XPath : ``./mods:titleInfo[@type="translated"]/mods:title[@xml:lang="LANG-ISO639-1"]``  
 
 Où LANG-ISO639-1 correspond à la langue du titre traduit selon la norme ISO639-1 (fr, en, de...). L’élément ``<mods:title>`` est répétable avec des valeurs de ``xml:lang`` différentes si le titre est traduit dans plusieurs langues.

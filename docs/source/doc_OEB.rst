@@ -63,7 +63,7 @@ Le contenu du livre est dans une balise englobante ``<mets:div>``, deux attribut
 
 1. Pour chaque balise ``<mets:div>`` enfant, un attribut est obligatoire :
 
-- ``TYPE``  : voir la liste des types autorisés ci-dessous (le schéma XML METS restreint l’utilisation des types possibles).
+- ``TYPE``  : voir la liste des types autorisés par Lodel pour la plateforme Books ci-dessous.
 
 2. Pour chaque balise ``<mets:div>`` enfant, les attributs facultatifs sont :
 
@@ -80,7 +80,7 @@ Ce n’est pas un encodage de la table des matières.
 
 Les volumes comportent souvent des incohérences entre la table des matières et le corps de l’ouvrage. Par exemple, pour les unités éditoriale, les titres de la table des matières peuvent différer de ceux indiqués en début d’unité. Il faut donc utiliser les titres des documents et des parties disponibles dans le corps du volume, et non ceux de la table de matières. La table des matières sert à comprendre la structure du volume, mais en cas d’incohérence entre la table des matières et le contenu du volume, c’est l’organisation du contenu du volume qui doit être conservée. Il peut y avoir une part d’interprétation pour faire des choix et décrire correctement cette structure.
 
-**III. Types autorisés dans la** ``<structMap>`` **pour OpenEdition Books**
+**III. Types autorisés pour **OpenEdition Books**, à indiquer dans la ``<structMap>``
 
 **1. Types du modèle « textes »**
 

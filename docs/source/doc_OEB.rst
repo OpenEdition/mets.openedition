@@ -446,7 +446,7 @@ Sous réserve d'activation de nouvelles langues :
 Dautres langues sont disponibles. Vous pouvez vous rapprocher de notre équipe pour tout renseignement complémentaire.
 
 
-``<amdSec>``
+Description de la section ``<amdSec>``
 -----------------------------------------------
 
 Il faut renseigner une balise ``<amdSec>`` si l’on souhaite indiquer la méthode utilisée pour l’encodage :

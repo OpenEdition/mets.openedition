@@ -49,12 +49,12 @@ Déclaration des schémas METS et MODS dans l’élément racine
 
 
 
-``<structMap>``
+Description de la section ``<structMap>``
 -----------------------------------------------
 
 La ``<structMap>`` décrit l’arborescence du volume. L’ordre des éléments dans la ``<structMap>`` définit l’ordre d’apparition de l’élément dans son parent (volume ou sous-partie) à l’import dans Lodel.
 
-I. Les balises** ``<mets:div>`` **doivent s’imbriquer pour décrire l’arborescence volume/sous-parties/texte
+I. Les balises ``<mets:div>`` doivent s’imbriquer pour décrire l’arborescence volume/sous-parties/texte
 ***********************************************************************
 
 Le contenu du livre est dans une balise englobante ``<mets:div>``, deux attributs sont obligatoires : 
@@ -75,7 +75,7 @@ Le contenu du livre est dans une balise englobante ``<mets:div>``, deux attribut
 
 - ``FILEID`` : identifiant du fichier utilisé dans la section ``/mets:mets/mets:fileSec/mets:fileGrp/mets:file/@ID``.
 
-II. La** ``<structMap>`` **doit refléter la structure complète du volume
+II. La ``<structMap>`` doit refléter la structure complète du volume
 ***********************************************************************
 
 Ce n’est pas un encodage de la table des matières.
@@ -114,7 +114,7 @@ III. Types autorisés pour **OpenEdition Books**, à indiquer dans la ``<structM
 *Remarque :* au niveau du volume, OpenEdition Books admet les types ``couverture1``, ``facsimile``, ``image`` et ``fichierannexe``. Au niveau de l’unité éditoriale, OpenEdition Books admet le type ``facsimile`` et ``fichierannexe``.
 
 
-``<fileSec>``
+Description de la section ``<fileSec>``
 -----------------------------------------------
 
 Chaque fichier contenu dans l’archive ZIP doit être décrit dans cette section dans une balise ``<mets:file>``. 
@@ -201,7 +201,7 @@ Le fichier décrit ici est un PDF nommé « 7-24 ». L’identifiant de la secti
 
 
 
- ``<dmdSec>``
+Description de la section ``<dmdSec>``
 -----------------------------------------------
 I. Présentation des éléments de ``<dmdSec>``
 ***********************************************************************

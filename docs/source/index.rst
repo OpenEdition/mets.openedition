@@ -23,7 +23,7 @@
    
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: À propos 
 
    license.rst

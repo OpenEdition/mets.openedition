@@ -54,7 +54,8 @@ Déclaration des schémas METS et MODS dans l’élément racine
 
 La ``<structMap>`` décrit l’arborescence du volume. L’ordre des éléments dans la ``<structMap>`` définit l’ordre d’apparition de l’élément dans son parent (volume ou sous-partie) à l’import dans Lodel.
 
-**I. Les balises** ``<mets:div>`` **doivent s’imbriquer pour décrire l’arborescence volume/sous-parties/texte**
+I. Les balises** ``<mets:div>`` **doivent s’imbriquer pour décrire l’arborescence volume/sous-parties/texte
+***********************************************************************
 
 Le contenu du livre est dans une balise englobante ``<mets:div>``, deux attributs sont obligatoires : 
 
@@ -74,13 +75,15 @@ Le contenu du livre est dans une balise englobante ``<mets:div>``, deux attribut
 
 - ``FILEID`` : identifiant du fichier utilisé dans la section ``/mets:mets/mets:fileSec/mets:fileGrp/mets:file/@ID``.
 
-**II. La** ``<structMap>`` **doit refléter la structure complète du volume**
+II. La** ``<structMap>`` **doit refléter la structure complète du volume
+***********************************************************************
 
 Ce n’est pas un encodage de la table des matières.
 
 Les volumes comportent souvent des incohérences entre la table des matières et le corps de l’ouvrage. Par exemple, pour les unités éditoriale, les titres de la table des matières peuvent différer de ceux indiqués en début d’unité. Il faut donc utiliser les titres des documents et des parties disponibles dans le corps du volume, et non ceux de la table de matières. La table des matières sert à comprendre la structure du volume, mais en cas d’incohérence entre la table des matières et le contenu du volume, c’est l’organisation du contenu du volume qui doit être conservée. Il peut y avoir une part d’interprétation pour faire des choix et décrire correctement cette structure.
 
-**III. Types autorisés pour **OpenEdition Books**, à indiquer dans la ``<structMap>``
+III. Types autorisés pour **OpenEdition Books**, à indiquer dans la ``<structMap>``
+***********************************************************************
 
 **1. Types du modèle « textes »**
 
@@ -200,7 +203,8 @@ Le fichier décrit ici est un PDF nommé « 7-24 ». L’identifiant de la secti
 
  ``<dmdSec>``
 -----------------------------------------------
-**I. Présentation**
+I. Présentation des éléments de ``<dmdSec>``
+***********************************************************************
 
 Chaque élément ``<div>`` utilisé dans la ``<strucMap>`` peut être décrit dans une ``<dmdSec>`` en `MODS`_.
 
@@ -340,7 +344,8 @@ Lorsqu’est déclaré dans la ``<structMap>`` un élément de TYPE ``couverture
 
 *Remarque :* Sur OpenEdition Books, tout élément de texte sans titre au début d’une sous-partie doit être traité en tant qu’unité documentaire différente avec un titre *ad hoc* (le type de document conseillé est ``avantpropos``).
 
-**II. Les éléments du format MODS**
+II. Les éléments du format MODS
+***********************************************************************
 
 Dans ``<mets:dmdSec>``, il faut placer tous les éléments descriptifs du volume au format MODS.
 
